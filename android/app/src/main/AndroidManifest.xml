@@ -11,7 +11,7 @@
         android:required="true" />
 
     <application
-        android:label="mobimap"
+        android:label="Mobimap"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
