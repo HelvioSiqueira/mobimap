@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:get/get.dart';
+import 'package:mobimap/app/routes/app_pages.dart';
+import 'package:mobimap/app/routes/app_routes.dart';
+
+import 'app/ui/theme/color_schemes.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -10,8 +13,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  await Permission.location.request();
 }
 
 class MyApp extends StatelessWidget {
@@ -19,18 +20,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const Scaffold(
-        body: GoogleMap(
-            initialCameraPosition:
-                CameraPosition(target: LatLng(37.422, -122.084))),
-      ),
+      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+      getPages: AppPages.routes,
+      initialRoute: Routes.INITIAL,
     );
   }
 }
