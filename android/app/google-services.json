@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "108053833876",
+    "project_id": "mobimap-a962b",
+    "storage_bucket": "mobimap-a962b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108053833876:android:cb2fcd775f102a1f13ac81",
+        "android_client_info": {
+          "package_name": "com.example.mobimap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhT0bSnDSK0Uk4rL3spBoakJLugUb6cMA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
