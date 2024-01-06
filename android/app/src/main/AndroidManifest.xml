@@ -2,6 +2,13 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:label="mobimap"
@@ -33,5 +40,12 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <meta-data android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyB9OOsniXWYiWYOyOeZ2vHdRrf7BI8DeIA"/>
     </application>
 </manifest>
