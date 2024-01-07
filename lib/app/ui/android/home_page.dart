@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobimap/app/controllers/home_controller.dart';
+import 'package:mobimap/app/routes/app_routes.dart';
 import 'package:mobimap/app/ui/widgets/android/loading_alert_dialog.dart';
 import 'package:mobimap/app/utils/map_style.dart';
 
@@ -19,15 +20,21 @@ class HomePage extends GetView<HomeController> {
       ),
     );
 
-    Get.find<HomeController>().getUserLocation();
+    //Get.find<HomeController>().getUserLocation();
 
     return SafeArea(
       child: Scaffold(
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(Routes.NEWAP);
+            },
             child: const Icon(Icons.add),
           ),
-          body: GetX<HomeController>(builder: (_) {
+          body: GetX<HomeController>(
+              initState: (state){
+                Get.find<HomeController>().getUserLocation();
+              },
+              builder: (_) {
             if (_.loading.isTrue) {
               return const LoadingAlertDialog(title: "Obtendo localização...");
             }
