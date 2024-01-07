@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobimap/app/controllers/home_controller.dart';
 import 'package:mobimap/app/routes/app_routes.dart';
-import 'package:mobimap/app/ui/widgets/android/loading_alert_dialog.dart';
+import 'package:mobimap/app/ui/widgets/android/my_loading_alert_dialog.dart';
 import 'package:mobimap/app/utils/map_style.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -36,7 +36,7 @@ class HomePage extends GetView<HomeController> {
               },
               builder: (_) {
             if (_.loading.isTrue) {
-              return LoadingAlertDialog(title: "Obtendo localização...".tr);
+              return MyLoadingAlertDialog(title: "Obtendo localização...".tr);
             }
 
             var userLocation = _.userLocation.value;

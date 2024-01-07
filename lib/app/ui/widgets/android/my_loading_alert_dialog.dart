@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoadingAlertDialog extends StatelessWidget {
-  const LoadingAlertDialog({
+class MyLoadingAlertDialog extends StatelessWidget {
+  const MyLoadingAlertDialog({
     super.key,
     required this.title,
   });

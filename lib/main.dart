@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:mobimap/app/bindings/home_binding.dart';
 import 'package:mobimap/app/routes/app_pages.dart';
@@ -10,7 +11,6 @@ import 'app/ui/theme/color_schemes.dart';
 import 'firebase_options.dart';
 
 void main() async {
-
   runApp(const MyApp());
 
   await Firebase.initializeApp(
@@ -23,17 +23,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Mobimap',
-      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme, fontFamily: "OpenSans"),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       initialBinding: HomeBinding(),
       getPages: AppPages.routes,
       initialRoute: Routes.INITIAL,
-      locale: Locale('pt', 'BR'),
-        translationsKeys: AppTranslations.translations
+      locale: const Locale('pt', 'BR'),
+      translationsKeys: AppTranslations.translations,
     );
   }
 }
