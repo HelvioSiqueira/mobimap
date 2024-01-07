@@ -33,7 +33,7 @@ class HomePage extends GetView<HomeController> {
 
             var initialCameraPosition = CameraPosition(
                 target: LatLng(userLocation["lat"]!, userLocation["long"]!),
-                zoom: 20);
+                zoom: 16);
 
             return GoogleMap(
               zoomControlsEnabled: false,

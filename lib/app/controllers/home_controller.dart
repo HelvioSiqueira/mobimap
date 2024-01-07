@@ -1,8 +1,9 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:location/location.dart';
-import 'package:permission_handler/permission_handler.dart%20';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeController extends GetxController {
+
   RxBool loading = false.obs;
   RxMap<String, double> userLocation = <String, double>{}.obs;
 
@@ -11,13 +12,15 @@ class HomeController extends GetxController {
 
     var latLong = <String, double>{};
 
-    var permission = await Permission.location.request();
+    await Permission.location.request();
 
-    if (permission.isGranted) {
-      var location = await Location().getLocation();
+    var hasPermission = await Geolocator.checkPermission();
 
-      latLong["lat"] = location.latitude!;
-      latLong["long"] = location.longitude!;
+    if (hasPermission != LocationPermission.denied) {
+      var location = await Geolocator.getCurrentPosition();
+
+      latLong["lat"] = location.latitude;
+      latLong["long"] = location.longitude;
 
       userLocation.value = latLong;
     } else {
