@@ -5,6 +5,7 @@ import 'package:mobimap/app/bindings/home_binding.dart';
 import 'package:mobimap/app/routes/app_pages.dart';
 import 'package:mobimap/app/routes/app_routes.dart';
 
+import 'app/translations/app_translations.dart';
 import 'app/ui/theme/color_schemes.dart';
 import 'firebase_options.dart';
 
@@ -31,6 +32,8 @@ class MyApp extends StatelessWidget {
       initialBinding: HomeBinding(),
       getPages: AppPages.routes,
       initialRoute: Routes.INITIAL,
+      locale: Locale('pt', 'BR'),
+        translationsKeys: AppTranslations.translations
     );
   }
 }

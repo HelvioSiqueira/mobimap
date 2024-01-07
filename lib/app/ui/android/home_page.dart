@@ -36,7 +36,7 @@ class HomePage extends GetView<HomeController> {
               },
               builder: (_) {
             if (_.loading.isTrue) {
-              return const LoadingAlertDialog(title: "Obtendo localização...");
+              return LoadingAlertDialog(title: "Obtendo localização...".tr);
             }
 
             var userLocation = _.userLocation.value;
