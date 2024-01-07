@@ -1,35 +1,30 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomeController extends GetxController {
-
   RxBool loading = false.obs;
-  RxMap<String, double> userLocation = <String, double>{}.obs;
+  Rx<LatLng> userLocation = LatLng(0.0, 0.0).obs;
 
   getUserLocation() async {
     loading(true);
 
-    var latLong = <String, double>{};
+    var permission = await Permission.location.request();
 
-    await Permission.location.request();
-
-    var hasPermission = await Geolocator.checkPermission();
-
-    if (hasPermission != LocationPermission.denied) {
-      var location = await Geolocator.getCurrentPosition();
-
-      latLong["lat"] = location.latitude;
-      latLong["long"] = location.longitude;
-
-      userLocation.value = latLong;
-    } else {
-      latLong["lat"] = 37.422;
-      latLong["long"] = -122.084;
-
-      userLocation.value = latLong;
-    }
+    userLocation.value = await _getLatLong(permission);
 
     loading(false);
+  }
+
+  Future<LatLng> _getLatLong(PermissionStatus permissionStatus) async {
+    if (permissionStatus == PermissionStatus.granted) {
+      var location = await Geolocator.getCurrentPosition();
+
+      return LatLng(location.latitude, location.longitude);
+    } else {
+
+      return const LatLng(37.422, -122.084);
+    }
   }
 }

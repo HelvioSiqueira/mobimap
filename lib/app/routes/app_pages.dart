@@ -4,6 +4,6 @@ import 'package:mobimap/app/ui/android/home_page.dart';
 
 class AppPages {
   static final routes = [
-    GetPage(name: Routes.INITIAL, page: () => const HomePage())
+    GetPage(name: Routes.INITIAL, page: () => HomePage())
   ];
 }
