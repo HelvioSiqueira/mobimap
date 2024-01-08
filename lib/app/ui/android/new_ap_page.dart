@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:mobimap/app/ui/widgets/android/my_chip_list.dart';
 import 'package:mobimap/app/ui/widgets/android/my_dropdown_menu.dart';
+import 'package:mobimap/app/ui/widgets/android/my_material_field.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
 
 class NewAPPage extends StatelessWidget {
@@ -12,13 +13,13 @@ class NewAPPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<String> selecioned = [];
-
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Theme.of(context).colorScheme.primaryContainer,
       ),
     );
+
+    TextEditingController nameAPController = TextEditingController();
 
     return SafeArea(
         child: Scaffold(
@@ -40,7 +41,7 @@ class NewAPPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Tire uma foto do ponto de acessibilidade:".tr),
+              MyMaterialTextField(nameAPController: nameAPController),
               const SizedBox(
                 height: 15,
               ),
@@ -62,13 +63,19 @@ class NewAPPage extends StatelessWidget {
                   color: Colors.black.withAlpha(70),
                 ),
               ),
-              const SizedBox(height: 30),
-              const MyMaterialTextField(
+              const SizedBox(height: 15),
+              const MyMaterialField(
                 hintText: '2652 Macedo Rodovia - Buriti, AM / 05880-245',
                 prefixIcon: Icon(Icons.location_on),
               ),
-              const SizedBox(height: 30),
-              const MyChipList(typesOfAccessibility: ["Rampa", "Banheiro", "Corrimão", "Trilhas", "Porta"]),
+              const SizedBox(height: 15),
+              const MyChipList(typesOfAccessibility: [
+                "Rampa",
+                "Banheiro",
+                "Corrimão",
+                "Trilhas",
+                "Porta"
+              ]),
             ],
           ),
         ),

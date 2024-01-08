@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 
-class MyMaterialTextField extends StatelessWidget {
+class MyMaterialTextField extends StatefulWidget {
   const MyMaterialTextField({
     super.key,
-    required this.hintText,
-    required this.prefixIcon,
+    required this.nameAPController,
   });
 
-  final String hintText;
-  final Icon prefixIcon;
+  final TextEditingController nameAPController;
 
+  @override
+  State<MyMaterialTextField> createState() => _MyMaterialTextFieldState();
+}
+
+class _MyMaterialTextFieldState extends State<MyMaterialTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      readOnly: true,
-      maxLines: 2,
-      decoration: InputDecoration(
-        prefixIcon: prefixIcon,
-        border: const OutlineInputBorder(
+      controller: widget.nameAPController,
+      onChanged: (text){},
+      decoration: const InputDecoration(
+        border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        hintText: hintText,
+        hintText: "Nome do ponto",
       ),
     );
   }
