@@ -3,23 +3,23 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:mobimap/app/ui/widgets/android/my_chip_list.dart';
-import 'package:mobimap/app/ui/widgets/android/my_dropdown_menu.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_field.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
+import 'package:mobimap/app/ui/widgets/android/my_radio_button_group.dart';
 
 class NewAPPage extends StatelessWidget {
-  const NewAPPage({super.key});
+  NewAPPage({super.key});
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameAPController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Theme.of(context).colorScheme.primaryContainer,
       ),
     );
-
-    TextEditingController nameAPController = TextEditingController();
 
     return SafeArea(
         child: Scaffold(
@@ -32,7 +32,9 @@ class NewAPPage extends StatelessWidget {
         title: Text("Criar ponto de acessibilidade".tr),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          _formKey.currentState!.validate();
+        },
         child: const Icon(FontAwesomeIcons.check),
       ),
       body: SingleChildScrollView(
@@ -41,7 +43,10 @@ class NewAPPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              MyMaterialTextField(nameAPController: nameAPController),
+              MyMaterialTextField(
+                formKey: _formKey,
+                nameAPController: _nameAPController,
+              ),
               const SizedBox(
                 height: 15,
               ),
@@ -76,6 +81,8 @@ class NewAPPage extends StatelessWidget {
                 "Trilhas",
                 "Porta"
               ]),
+              const SizedBox(height: 15),
+              MyRadioButtonGroup(),
             ],
           ),
         ),

@@ -25,7 +25,7 @@ class _MyChipListState extends State<MyChipList> {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Text('Selecione os pontos de acessibilidade: '),
+          const Text('Selecione os tipos de pontos: '),
           const SizedBox(height: 10),
           Wrap(
             alignment: WrapAlignment.spaceEvenly,
