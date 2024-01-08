@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:mobimap/app/ui/widgets/android/my_chip_list.dart';
 import 'package:mobimap/app/ui/widgets/android/my_dropdown_menu.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
 
@@ -10,6 +11,9 @@ class NewAPPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    List<String> selecioned = [];
+
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Theme.of(context).colorScheme.primaryContainer,
@@ -34,7 +38,7 @@ class NewAPPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("Tire uma foto do ponto de acessibilidade:".tr),
               const SizedBox(
@@ -64,7 +68,7 @@ class NewAPPage extends StatelessWidget {
                 prefixIcon: Icon(Icons.location_on),
               ),
               const SizedBox(height: 30),
-              const MyDropdownMenu(typesOfAccessibility: ["Rampa", "Banheiro"])
+              const MyChipList(typesOfAccessibility: ["Rampa", "Banheiro", "Corrimão", "Trilhas", "Porta"]),
             ],
           ),
         ),

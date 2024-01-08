@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme, fontFamily: "OpenSans"),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       initialBinding: HomeBinding(),
+      themeMode: ThemeMode.dark,
       getPages: AppPages.routes,
       initialRoute: Routes.INITIAL,
       locale: const Locale('pt', 'BR'),
