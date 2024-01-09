@@ -12,6 +12,8 @@ class NewAPPage extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameAPController = TextEditingController();
+  final selectedTypesOfAccessibility = <String>[];
+  String selectedQualityOfAccessibility = "";
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,10 @@ class NewAPPage extends StatelessWidget {
         statusBarColor: Theme.of(context).colorScheme.primaryContainer,
       ),
     );
+
+    void onSelectedQuality(String quality) {
+      selectedQualityOfAccessibility = quality;
+    }
 
     return SafeArea(
         child: Scaffold(
@@ -34,6 +40,8 @@ class NewAPPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _formKey.currentState!.validate();
+          print(selectedTypesOfAccessibility);
+          print(selectedQualityOfAccessibility);
         },
         child: const Icon(FontAwesomeIcons.check),
       ),
@@ -74,15 +82,13 @@ class NewAPPage extends StatelessWidget {
                 prefixIcon: Icon(Icons.location_on),
               ),
               const SizedBox(height: 15),
-              const MyChipList(typesOfAccessibility: [
-                "Rampa",
-                "Banheiro",
-                "Corrimão",
-                "Trilhas",
-                "Porta"
-              ]),
+              MyChipList(
+                selectedTypesOfAccessibility: selectedTypesOfAccessibility,
+              ),
               const SizedBox(height: 15),
-              MyRadioButtonGroup(),
+              MyRadioButtonGroup(
+                onSelectedQuality: onSelectedQuality,
+              ),
             ],
           ),
         ),

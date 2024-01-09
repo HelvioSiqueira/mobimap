@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobimap/app/data/model/quality_of_accessibility.dart';
 
 class MyRadioButtonGroup extends StatefulWidget {
-  const MyRadioButtonGroup({super.key});
+  const MyRadioButtonGroup({
+    super.key,
+    required this.onSelectedQuality,
+  });
+
+   final Function onSelectedQuality;
 
   @override
   State<MyRadioButtonGroup> createState() => _MyRadioButtonGroupState();
 }
 
 class _MyRadioButtonGroupState extends State<MyRadioButtonGroup> {
-  List<String> qualityPoint = ["Bom", "Medio", "Ruim"];
-  String selected = "";
+  List<String> qualityPoint = QualilityOfAccessibility.qualility;
+
+  var selected = "";
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +42,7 @@ class _MyRadioButtonGroupState extends State<MyRadioButtonGroup> {
                       onChanged: (value) {
                         setState(() {
                           selected = value!;
+                          widget.onSelectedQuality(value);
                         });
                       },
                     ),

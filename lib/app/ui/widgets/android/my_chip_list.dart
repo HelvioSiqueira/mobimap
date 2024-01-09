@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mobimap/app/data/model/types_of_accessibility.dart';
 
 class MyChipList extends StatefulWidget {
   const MyChipList({
     super.key,
-    required this.typesOfAccessibility,
+    required this.selectedTypesOfAccessibility,
   });
 
-  final List<String> typesOfAccessibility;
+  final List<String> selectedTypesOfAccessibility;
 
   @override
   State<MyChipList> createState() => _MyChipListState();
 }
 
 class _MyChipListState extends State<MyChipList> {
-  List<String> selecioned = [];
+
+  List<String> typesOfAccessibility = TypesOfAccessibility.types;
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +32,18 @@ class _MyChipListState extends State<MyChipList> {
           Wrap(
             alignment: WrapAlignment.spaceEvenly,
             spacing: 5,
-            children: widget.typesOfAccessibility
+            children: typesOfAccessibility
                 .map((type) => FilterChip(
                     label: Text(type),
-                    selected: selecioned.contains(type),
+                    selected: widget.selectedTypesOfAccessibility.contains(type),
                     onSelected: (selected) {
                       if (selected) {
                         setState(() {
-                          selecioned.add(type);
+                          widget.selectedTypesOfAccessibility.add(type);
                         });
                       } else {
                         setState(() {
-                          selecioned.remove(type);
+                          widget.selectedTypesOfAccessibility.remove(type);
                         });
                       }
                     }))
