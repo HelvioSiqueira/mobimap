@@ -11,9 +11,12 @@ class NewAPPage extends StatelessWidget {
   NewAPPage({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
+
   final TextEditingController _nameAPController = TextEditingController();
-  final selectedTypesOfAccessibility = <String>[];
-  String selectedQualityOfAccessibility = "";
+  final _selectedTypesOfAccessibility = <String>[];
+  String _selectedQualityOfAccessibility = "";
+  final TextEditingController _commentAPController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class NewAPPage extends StatelessWidget {
     );
 
     void onSelectedQuality(String quality) {
-      selectedQualityOfAccessibility = quality;
+      _selectedQualityOfAccessibility = quality;
     }
 
     return SafeArea(
@@ -40,8 +43,6 @@ class NewAPPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _formKey.currentState!.validate();
-          print(selectedTypesOfAccessibility);
-          print(selectedQualityOfAccessibility);
         },
         child: const Icon(FontAwesomeIcons.check),
       ),
@@ -54,6 +55,9 @@ class NewAPPage extends StatelessWidget {
               MyMaterialTextField(
                 formKey: _formKey,
                 nameAPController: _nameAPController,
+                maxLines: 1,
+                hintText: "Nome do ponto",
+                errorText: "O ponto precisa ter um nome",
               ),
               const SizedBox(
                 height: 15,
@@ -83,12 +87,17 @@ class NewAPPage extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               MyChipList(
-                selectedTypesOfAccessibility: selectedTypesOfAccessibility,
-              ),
+                  selectedTypesOfAccessibility: _selectedTypesOfAccessibility),
               const SizedBox(height: 15),
-              MyRadioButtonGroup(
-                onSelectedQuality: onSelectedQuality,
-              ),
+              MyRadioButtonGroup(onSelectedQuality: onSelectedQuality),
+              const SizedBox(height: 15),
+              MyMaterialTextField(
+                formKey: _formKey2,
+                nameAPController: _commentAPController,
+                maxLines: 3,
+                hintText: "Comentario",
+                errorText: null,
+              )
             ],
           ),
         ),
