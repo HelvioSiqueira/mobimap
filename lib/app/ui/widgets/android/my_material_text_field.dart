@@ -9,6 +9,7 @@ class MyMaterialTextField extends StatefulWidget {
     required this.hintText,
     required this.errorText,
     required this.maxLines,
+    required this.maxLength,
   });
 
   final TextEditingController nameAPController;
@@ -16,6 +17,7 @@ class MyMaterialTextField extends StatefulWidget {
   final String hintText;
   final String? errorText;
   final int maxLines;
+  final int maxLength;
 
   @override
   State<MyMaterialTextField> createState() => _MyMaterialTextFieldState();
@@ -27,6 +29,7 @@ class _MyMaterialTextFieldState extends State<MyMaterialTextField> {
     return Form(
         key: widget.formKey,
         child: TextFormField(
+          maxLength: widget.maxLength,
           controller: widget.nameAPController,
           onChanged: (text) {},
           maxLines: widget.maxLines,

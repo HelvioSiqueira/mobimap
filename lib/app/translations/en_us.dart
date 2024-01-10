@@ -4,5 +4,6 @@ final Map<String, String> enUs = {
   "Tire uma foto do ponto de acessibilidade:": "Take a photo of the accessibility point:",
   "O ponto precisa ter um nome": "The point needs to have a name",
   "Nome do ponto": "Point name",
-  "Selecione os tipos de pontos": "Select stitch types:"
+  "Selecione os tipos de pontos": "Select stitch types:",
+  "A qualidade precisa ser selecionada": "Quality needs to be selected"
 };
