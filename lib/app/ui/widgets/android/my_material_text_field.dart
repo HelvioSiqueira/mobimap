@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MyMaterialTextField extends StatefulWidget {
-  const MyMaterialTextField({
+  MyMaterialTextField({
     super.key,
     required this.controller,
     required this.hintText,
@@ -11,11 +11,22 @@ class MyMaterialTextField extends StatefulWidget {
     required this.maxLength,
   });
 
+  MyMaterialTextField.toPassword({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.errorText,
+    required this.maxLines,
+    required this.maxLength,
+    required this.obscureText,
+  });
+
   final TextEditingController controller;
   final String hintText;
   final String? errorText;
   final int maxLines;
-  final int maxLength;
+  final int? maxLength;
+  bool obscureText = false;
 
   @override
   State<MyMaterialTextField> createState() => _MyMaterialTextFieldState();
@@ -25,6 +36,8 @@ class _MyMaterialTextFieldState extends State<MyMaterialTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscuringCharacter: '●',
+      obscureText: widget.obscureText,
       maxLength: widget.maxLength,
       controller: widget.controller,
       onChanged: (text) {},

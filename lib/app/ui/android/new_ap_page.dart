@@ -13,7 +13,6 @@ class NewAPPage extends GetView<NewAPController> {
   NewAPPage({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
 
   final TextEditingController _nameAPController = TextEditingController();
   final _selectedTypesOfAccessibility = <String>[];
