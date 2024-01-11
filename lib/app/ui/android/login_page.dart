@@ -1,11 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mobimap/app/controllers/login_controller.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
-
-import '../../routes/app_routes.dart';
 
 class LoginPage extends GetView<LoginController> {
   LoginPage({super.key});
@@ -22,6 +19,10 @@ class LoginPage extends GetView<LoginController> {
         statusBarColor: Theme.of(context).colorScheme.primaryContainer,
       ),
     );
+
+    onErrorInputs() {
+      controller.error.value = false;
+    }
 
     return GetX<LoginController>(builder: (controller) {
       void signInUser() async {
@@ -46,10 +47,10 @@ class LoginPage extends GetView<LoginController> {
       return Scaffold(
         body: Form(
           key: _formKey,
-          child: SingleChildScrollView(
-            child: SafeArea(
+          child: SafeArea(
+            child: SingleChildScrollView(
               child: Container(
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height * 0.97,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -61,7 +62,7 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 150),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 140),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primaryContainer,
@@ -73,7 +74,7 @@ class LoginPage extends GetView<LoginController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 50),
+                            padding: const EdgeInsets.only(bottom: 20),
                             child: Text(
                               'LOGIN',
                               style: TextStyle(
@@ -81,12 +82,29 @@ class LoginPage extends GetView<LoginController> {
                                   color: Theme.of(context).colorScheme.primary),
                             ),
                           ),
+                          Visibility(
+                            maintainSize: true,
+                            maintainAnimation: true,
+                            maintainState: true,
+                            visible: controller.error.value,
+                            child: Text(
+                              "Não foi possivel realizar o login, verifique seu email e senha e tente novamente.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: Theme.of(context).colorScheme.error),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
                           MyMaterialTextField(
-                              controller: _emailController,
-                              hintText: "Email",
-                              errorText: "Digite seu email",
-                              maxLines: 1,
-                              maxLength: null),
+                            controller: _emailController,
+                            hintText: "Email",
+                            errorText: "Digite seu email",
+                            maxLines: 1,
+                            maxLength: null,
+                            onErrorInput: onErrorInputs,
+                            hasError: controller.error.value,
+                          ),
                           const SizedBox(height: 20),
                           MyMaterialTextField.toPassword(
                             controller: _passwordController,
@@ -95,6 +113,8 @@ class LoginPage extends GetView<LoginController> {
                             maxLines: 1,
                             maxLength: null,
                             obscureText: true,
+                            onErrorInput: onErrorInputs,
+                            hasError: controller.error.value,
                           ),
                           const SizedBox(height: 20),
                           ElevatedButton.icon(
