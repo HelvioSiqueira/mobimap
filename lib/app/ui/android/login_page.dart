@@ -17,7 +17,6 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Theme.of(context).colorScheme.primaryContainer,
@@ -27,6 +26,21 @@ class LoginPage extends GetView<LoginController> {
     return GetX<LoginController>(builder: (controller) {
       void signInUser() async {
         controller.doLogin(_emailController.text, _passwordController.text);
+      }
+
+      Widget iconButton = const Icon(Icons.login);
+
+      if (controller.loading.isTrue) {
+        iconButton = const SizedBox(
+          height: 24,
+          width: 24,
+          child: CircularProgressIndicator(),
+        );
+      } else if (controller.error.isTrue) {
+        iconButton = Icon(
+          Icons.close,
+          color: Theme.of(context).colorScheme.error,
+        );
       }
 
       return Scaffold(
@@ -85,17 +99,7 @@ class LoginPage extends GetView<LoginController> {
                           const SizedBox(height: 20),
                           ElevatedButton.icon(
                             label: const Text("LOGAR"),
-                            icon: controller.loading.isTrue
-                                ? Container(
-                                    width: 24,
-                                    height: 24,
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: const CircularProgressIndicator(
-                                      color: Colors.white,
-                                      strokeWidth: 3,
-                                    ),
-                                  )
-                                : const Icon(Icons.login),
+                            icon: iconButton,
                             onPressed: controller.loading.isTrue
                                 ? null
                                 : () async {
