@@ -4,11 +4,13 @@ import 'package:mobimap/app/routes/app_routes.dart';
 import 'package:mobimap/app/ui/android/home_page.dart';
 import 'package:mobimap/app/ui/android/login_page.dart';
 import 'package:mobimap/app/ui/android/new_ap_page.dart';
+import 'package:mobimap/app/ui/android/splash_art_page.dart';
 
 class AppPages {
   static final routes = [
+    GetPage(name: Routes.INITIAL, page: () => const SplashArtPage()),
     GetPage(
-      name: Routes.INITIAL,
+      name: Routes.HOME,
       page: () => HomePage(),
     ),
     GetPage(
