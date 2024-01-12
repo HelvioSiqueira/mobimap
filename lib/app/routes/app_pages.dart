@@ -19,6 +19,8 @@ class AppPages {
     GetPage(
       name: Routes.HOME,
       page: () => HomePage(),
+      transition: Transition.leftToRight,
+      binding: HomeBinding(),
     ),
     GetPage(
       name: Routes.NEWAP,
@@ -30,6 +32,7 @@ class AppPages {
       name: Routes.LOGIN,
       page: () => LoginPage(),
       binding: LoginBinding(),
+      transition: Transition.rightToLeft,
     )
   ];
 }

@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 class HomeController extends GetxController {
   RxBool loading = false.obs;
   Rx<LatLng> userLocation = LatLng(0.0, 0.0).obs;
+  bool getUserLocationHasCalled = false;
 
   getUserLocation() async {
     loading(true);
@@ -15,6 +16,7 @@ class HomeController extends GetxController {
     userLocation.value = await _getLatLong(permission);
 
     loading(false);
+    getUserLocationHasCalled = true;
   }
 
   Future<LatLng> _getLatLong(PermissionStatus permissionStatus) async {

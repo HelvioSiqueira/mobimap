@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:mobimap/app/controllers/login_controller.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
 
+import '../../routes/app_routes.dart';
+
 class LoginPage extends GetView<LoginController> {
   LoginPage({super.key});
 
@@ -26,7 +28,9 @@ class LoginPage extends GetView<LoginController> {
 
     return GetX<LoginController>(builder: (controller) {
       void signInUser() async {
-        controller.doLogin(_emailController.text, _passwordController.text);
+        if(await controller.doLogin(_emailController.text, _passwordController.text)){
+          Get.offAndToNamed(Routes.HOME, arguments: [controller.authManager]);
+        }
       }
 
       Widget iconButton = const Icon(Icons.login);
