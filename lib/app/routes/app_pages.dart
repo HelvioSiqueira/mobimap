@@ -14,7 +14,7 @@ class AppPages {
     GetPage(
       name: Routes.INITIAL,
       page: () => const SplashArtPage(),
-      bindings: [SplashArtBinding(), HomeBinding(), LoginBinding()],
+      bindings: [SplashArtBinding(), HomeBinding()]
     ),
     GetPage(
       name: Routes.HOME,
@@ -28,7 +28,8 @@ class AppPages {
     ),
     GetPage(
       name: Routes.LOGIN,
-      page: () => LoginPage()
+      page: () => LoginPage(),
+      binding: LoginBinding(),
     )
   ];
 }

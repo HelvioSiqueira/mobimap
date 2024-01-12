@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -22,42 +23,45 @@ class HomePage extends GetView<HomeController> {
 
     //Get.find<HomeController>().getUserLocation();
 
-    return SafeArea(
-      child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Get.toNamed(Routes.NEWAP);
-            },
-            child: const Icon(Icons.add),
-          ),
-          body: GetX<HomeController>(
-              initState: (state){
-                Get.find<HomeController>().getUserLocation();
+    return StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(), builder: (context, snapshot){
+
+      return SafeArea(
+        child: Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Get.toNamed(Routes.NEWAP);
               },
-              builder: (_) {
-            if (_.loading.isTrue) {
-              return MyLoadingAlertDialog(title: "Obtendo localização...".tr);
-            }
+              child: const Icon(Icons.add),
+            ),
+            body: GetX<HomeController>(
+                initState: (state){
+                  Get.find<HomeController>().getUserLocation();
+                },
+                builder: (_) {
+                  if (_.loading.isTrue) {
+                    return MyLoadingAlertDialog(title: "Obtendo localização...".tr);
+                  }
 
-            var userLocation = _.userLocation.value;
+                  var userLocation = _.userLocation.value;
 
-            var initialCameraPosition =
-                CameraPosition(target: userLocation, zoom: 16);
+                  var initialCameraPosition =
+                  CameraPosition(target: userLocation, zoom: 16);
 
-            return GoogleMap(
-              onMapCreated: (controller){
+                  return GoogleMap(
+                    onMapCreated: (controller){
 
-                var brightness = MediaQuery.of(context).platformBrightness;
-                bool isDarkMode = brightness == Brightness.dark;
+                      var brightness = MediaQuery.of(context).platformBrightness;
+                      bool isDarkMode = brightness == Brightness.dark;
 
-                googleMapController = controller;
-                if(isDarkMode) googleMapController.setMapStyle(mapStyle);
-              },
-              markers: {Marker(markerId: const MarkerId("1"), position: userLocation, )},
-              zoomControlsEnabled: false,
-              initialCameraPosition: initialCameraPosition,
-            );
-          })),
-    );
+                      googleMapController = controller;
+                      if(isDarkMode) googleMapController.setMapStyle(mapStyle);
+                    },
+                    markers: {Marker(markerId: const MarkerId("1"), position: userLocation, )},
+                    zoomControlsEnabled: false,
+                    initialCameraPosition: initialCameraPosition,
+                  );
+                })),
+      );
+    });
   }
 }
