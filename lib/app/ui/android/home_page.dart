@@ -60,8 +60,9 @@ class HomePage extends GetView<HomeController> {
                           bool isDarkMode = brightness == Brightness.dark;
 
                           googleMapController = controller;
-                          if (isDarkMode)
+                          if (isDarkMode) {
                             googleMapController.setMapStyle(mapStyle);
+                          }
                         },
                         markers: {
                           Marker(
@@ -80,10 +81,20 @@ class HomePage extends GetView<HomeController> {
                                   onPressed: () {
                                     Get.toNamed(Routes.LOGIN);
                                   },
-                                  icon: CircleAvatar(
-                                    radius: 25,
-                                    child: Text(
-                                        snapshot.data!.email.toString()[0]),
+                                  icon: Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            width: 3),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(30))),
+                                    child: CircleAvatar(
+                                      radius: 25,
+                                      child: Text(
+                                          snapshot.data!.email.toString()[0]),
+                                    ),
                                   )),
                             )
                           : Positioned(
@@ -93,11 +104,21 @@ class HomePage extends GetView<HomeController> {
                                   onPressed: () {
                                     Get.toNamed(Routes.LOGIN);
                                   },
-                                  icon: const CircleAvatar(
-                                    radius: 25,
-                                    child: Icon(
-                                      Icons.login,
-                                      size: 25,
+                                  icon: Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            width: 3),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(30))),
+                                    child: const CircleAvatar(
+                                      radius: 25,
+                                      child: Icon(
+                                        Icons.login,
+                                        size: 25,
+                                      ),
                                     ),
                                   )),
                             ),
