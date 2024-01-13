@@ -13,13 +13,13 @@ class HomeController extends GetxController {
 
     var permission = await Permission.location.request();
 
-    userLocation.value = await _getLatLong(permission);
+    userLocation.value = await getLatLong(permission);
 
     loading(false);
     getUserLocationHasCalled = true;
   }
 
-  Future<LatLng> _getLatLong(PermissionStatus permissionStatus) async {
+  Future<LatLng> getLatLong(PermissionStatus permissionStatus) async {
     if (permissionStatus == PermissionStatus.granted) {
       var location = await Geolocator.getCurrentPosition();
 
