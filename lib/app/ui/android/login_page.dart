@@ -18,7 +18,7 @@ class LoginPage extends GetView<LoginController> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Theme.of(context).colorScheme.primaryContainer,
+        statusBarColor: Theme.of(context).colorScheme.primary,
       ),
     );
 
@@ -46,6 +46,10 @@ class LoginPage extends GetView<LoginController> {
           Icons.close,
           color: Theme.of(context).colorScheme.error,
         );
+      }
+
+      if(controller.needVerifyUser.value){
+        //LÓGICA
       }
 
       return Scaffold(
@@ -80,7 +84,7 @@ class LoginPage extends GetView<LoginController> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
                             child: Text(
-                              'LOGIN',
+                              'LOGIN'.tr,
                               style: TextStyle(
                                   fontSize: 30,
                                   color: Theme.of(context).colorScheme.primary),
@@ -92,7 +96,7 @@ class LoginPage extends GetView<LoginController> {
                             maintainState: true,
                             visible: controller.error.value,
                             child: Text(
-                              "Não foi possivel realizar o login, verifique seu email e senha e tente novamente.",
+                              "Não foi possivel realizar o login, verifique seu email e senha e tente novamente.".tr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 11,
@@ -102,8 +106,8 @@ class LoginPage extends GetView<LoginController> {
                           const SizedBox(height: 10),
                           MyMaterialTextField(
                             controller: _emailController,
-                            hintText: "Email",
-                            errorText: "Digite seu email",
+                            hintText: "Email".tr,
+                            errorText: "Digite seu email".tr,
                             maxLines: 1,
                             maxLength: null,
                             onErrorInput: onErrorInputs,
@@ -112,8 +116,8 @@ class LoginPage extends GetView<LoginController> {
                           const SizedBox(height: 20),
                           MyMaterialTextField.toPassword(
                             controller: _passwordController,
-                            hintText: "Password",
-                            errorText: "Digite a sua senha",
+                            hintText: "Password".tr,
+                            errorText: "Digite a sua senha".tr,
                             maxLines: 1,
                             maxLength: null,
                             obscureText: true,
@@ -122,7 +126,7 @@ class LoginPage extends GetView<LoginController> {
                           ),
                           const SizedBox(height: 20),
                           ElevatedButton.icon(
-                            label: const Text("LOGAR"),
+                            label: Text("LOGAR".tr),
                             icon: iconButton,
                             onPressed: controller.loading.isTrue
                                 ? null
@@ -134,7 +138,9 @@ class LoginPage extends GetView<LoginController> {
                                 padding: const EdgeInsets.all(16.0)),
                           ),
                           TextButton(
-                              onPressed: () {}, child: const Text('Cadastrar'))
+                              onPressed: () {}, child: Text('Cadastrar'.tr)),
+                          TextButton(onPressed: (){
+                          }, child: Text('Esqueci minha senha'.tr))
                         ],
                       ),
                     ),

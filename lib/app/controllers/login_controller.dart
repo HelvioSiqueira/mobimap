@@ -8,6 +8,7 @@ class LoginController extends GetxController{
   final AuthManager authManager;
   RxBool loading = false.obs;
   RxBool error = false.obs;
+  RxBool needVerifyUser = false.obs;
 
    Future<bool> doLogin(String email, String password) async {
     loading(true);
@@ -20,9 +21,27 @@ class LoginController extends GetxController{
       return false;
     } else if(result is Success){
       return true;
+    } else if(result is NoVerifyUser){
+      needVerifyUser.value = true;
+      return false;
     } else {
       return false;
     }
+  }
+
+  Future<bool> resetPassword(String email) async {
+     loading(true);
+     var result = await authManager.doResetPassword(email);
+     loading(false);
+
+     if(result is Failure){
+       error.value = true;
+       return false;
+     } else if(result is Success){
+       return true;
+     } else {
+       return false;
+     }
   }
 
 }
