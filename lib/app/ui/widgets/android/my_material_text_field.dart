@@ -70,7 +70,7 @@ class _MyMaterialTextFieldState extends State<MyMaterialTextField> {
                   : Theme.of(context).colorScheme.onSurfaceVariant),
           borderRadius: const BorderRadius.all(Radius.circular(20)),
         ),
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
         border: OutlineInputBorder(
           borderSide: BorderSide(
               width: 2.0,

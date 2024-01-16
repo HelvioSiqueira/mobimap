@@ -23,7 +23,7 @@ class NewAPPage extends GetView<NewAPController> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Theme.of(context).colorScheme.primaryContainer,
+        statusBarColor: Theme.of(context).colorScheme.primary,
       ),
     );
 

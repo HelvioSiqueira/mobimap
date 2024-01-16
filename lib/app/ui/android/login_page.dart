@@ -138,7 +138,9 @@ class LoginPage extends GetView<LoginController> {
                                 padding: const EdgeInsets.all(16.0)),
                           ),
                           TextButton(
-                              onPressed: () {}, child: Text('Cadastrar'.tr)),
+                              onPressed: () {
+                                Get.toNamed(Routes.REGISTER);
+                              }, child: Text('Cadastrar'.tr)),
                           TextButton(onPressed: (){
                           }, child: Text('Esqueci minha senha'.tr))
                         ],
