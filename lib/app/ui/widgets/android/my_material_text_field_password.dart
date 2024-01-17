@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobimap/app/ui/widgets/android/strength_password.dart';
 
 class MyMaterialTextFieldPassword extends StatefulWidget {
-   MyMaterialTextFieldPassword({
+  MyMaterialTextFieldPassword({
     super.key,
     required this.controller,
     required this.hintText,
@@ -11,6 +12,7 @@ class MyMaterialTextFieldPassword extends StatefulWidget {
     required this.maxLength,
     this.onErrorInput,
     this.hasError = false,
+    this.strengthPassword = false,
   });
 
   final TextEditingController controller;
@@ -19,6 +21,7 @@ class MyMaterialTextFieldPassword extends StatefulWidget {
   final int maxLines;
   final int? maxLength;
   bool hasError;
+  bool strengthPassword;
 
   void Function()? onErrorInput = () {};
 
@@ -32,6 +35,10 @@ class _MyMaterialTextFieldPasswordState
   var obscureText = true;
   IconButton? suffixIcon;
 
+  var isLettersChecked = false;
+  var isNumbersChecked = false;
+  var isSpecialChecked = false;
+
   @override
   Widget build(BuildContext context) {
     suffixIcon = IconButton(
@@ -44,47 +51,93 @@ class _MyMaterialTextFieldPasswordState
             ? const Icon(Icons.visibility)
             : const Icon(Icons.visibility_off));
 
-    return TextFormField(
-      obscuringCharacter: '●',
-      obscureText: obscureText,
-      maxLength: widget.maxLength,
-      controller: widget.controller,
-      onChanged: (text) {
-        if (widget.onErrorInput != null) {
-          widget.onErrorInput!();
-        }
-      },
-      maxLines: widget.maxLines,
-      validator: widget.errorText != null
-          ? (value) {
-              if (value!.isEmpty) {
-                return widget.errorText?.tr;
-              }
-              return null;
+    return Column(
+      children: [
+        TextFormField(
+          obscuringCharacter: '●',
+          obscureText: obscureText,
+          maxLength: widget.maxLength,
+          controller: widget.controller,
+          onChanged: (text) {
+            if (widget.onErrorInput != null) {
+              widget.onErrorInput!();
             }
-          : null,
-      decoration: InputDecoration(
-        alignLabelWithHint: false,
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              width: 2.0,
-              color: widget.hasError
-                  ? Theme.of(context).colorScheme.error
-                  : Theme.of(context).colorScheme.onSurfaceVariant),
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
+
+            if (text.contains(RegExp(r'[a-z]', caseSensitive: false))) {
+              setState(() {
+                isLettersChecked = true;
+              });
+            } else {
+              setState(() {
+                isLettersChecked = false;
+              });
+            }
+
+            if (text.contains(RegExp(r'\d'))) {
+              setState(() {
+                isNumbersChecked = true;
+              });
+            } else {
+              setState(() {
+                isNumbersChecked = false;
+              });
+            }
+
+
+
+            if (text.contains(RegExp(
+                r'[\^$*.\[\]{}()?\-"!@#%&/\,><:;_~`+=' // <-- Notice the escaped symbols
+                "'" // <-- ' is added to the expression
+                ']'))) {
+              setState(() {
+                isSpecialChecked = true;
+              });
+            } else {
+              setState(() {
+                isSpecialChecked = false;
+              });
+            }
+          },
+          maxLines: widget.maxLines,
+          validator: widget.errorText != null
+              ? (value) {
+                  if (value!.isEmpty) {
+                    return widget.errorText?.tr;
+                  }
+                  return null;
+                }
+              : null,
+          decoration: InputDecoration(
+            alignLabelWithHint: false,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  width: 2.0,
+                  color: widget.hasError
+                      ? Theme.of(context).colorScheme.error
+                      : Theme.of(context).colorScheme.onSurfaceVariant),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                  width: 2.0,
+                  color: widget.hasError
+                      ? Theme.of(context).colorScheme.error
+                      : Theme.of(context).colorScheme.tertiary),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+            labelText: widget.hintText.tr,
+            suffixIcon: suffixIcon,
+          ),
         ),
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(
-              width: 2.0,
-              color: widget.hasError
-                  ? Theme.of(context).colorScheme.error
-                  : Theme.of(context).colorScheme.tertiary),
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-        ),
-        labelText: widget.hintText.tr,
-        suffixIcon: suffixIcon,
-      ),
+        Visibility(
+            visible: widget.strengthPassword,
+            child: StrengthPassword(
+              isLettersChecked: isLettersChecked,
+              isNumbersChecked: isNumbersChecked,
+              isSpecialChecked: isSpecialChecked,
+            )),
+      ],
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mobimap/app/controllers/register_controller.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
 
 import '../widgets/android/my_material_text_field_password.dart';
+import '../widgets/android/strength_password.dart';
 
 class RegisterPage extends GetView<RegisterController> {
   RegisterPage({super.key});
@@ -83,8 +83,9 @@ class RegisterPage extends GetView<RegisterController> {
                           errorText: "",
                           maxLines: 1,
                           maxLength: null,
+                          strengthPassword: true,
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
                         MyMaterialTextFieldPassword(
                           controller: _secondPasswordController,
                           hintText: "Confirme a senha",
@@ -92,7 +93,7 @@ class RegisterPage extends GetView<RegisterController> {
                           maxLines: 1,
                           maxLength: null,
                         ),
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         ElevatedButton.icon(
                           label: Text("CONCLUIR".tr),
                           icon: iconButton,
