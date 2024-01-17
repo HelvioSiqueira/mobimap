@@ -1,34 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MyMaterialTextField extends StatefulWidget {
-  MyMaterialTextField(
-      {super.key,
-      required this.controller,
-      required this.hintText,
-      required this.errorText,
-      required this.maxLines,
-      required this.maxLength,
-      this.onErrorInput,
-      this.hasError = false});
+class MyMaterialTextFieldPassword extends StatefulWidget {
+   MyMaterialTextFieldPassword({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.errorText,
+    required this.maxLines,
+    required this.maxLength,
+    this.onErrorInput,
+    this.hasError = false,
+  });
 
   final TextEditingController controller;
   final String hintText;
   final String? errorText;
   final int maxLines;
   final int? maxLength;
-  final bool hasError;
+  bool hasError;
 
   void Function()? onErrorInput = () {};
 
   @override
-  State<MyMaterialTextField> createState() => _MyMaterialTextFieldState();
+  State<MyMaterialTextFieldPassword> createState() =>
+      _MyMaterialTextFieldPasswordState();
 }
 
-class _MyMaterialTextFieldState extends State<MyMaterialTextField> {
+class _MyMaterialTextFieldPasswordState
+    extends State<MyMaterialTextFieldPassword> {
+  var obscureText = true;
+  IconButton? suffixIcon;
+
   @override
   Widget build(BuildContext context) {
+    suffixIcon = IconButton(
+        onPressed: () {
+          setState(() {
+            obscureText = !obscureText;
+          });
+        },
+        icon: obscureText
+            ? const Icon(Icons.visibility)
+            : const Icon(Icons.visibility_off));
+
     return TextFormField(
+      obscuringCharacter: '●',
+      obscureText: obscureText,
       maxLength: widget.maxLength,
       controller: widget.controller,
       onChanged: (text) {
@@ -65,6 +83,7 @@ class _MyMaterialTextFieldState extends State<MyMaterialTextField> {
           borderRadius: const BorderRadius.all(Radius.circular(20)),
         ),
         labelText: widget.hintText.tr,
+        suffixIcon: suffixIcon,
       ),
     );
   }

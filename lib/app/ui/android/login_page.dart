@@ -5,6 +5,7 @@ import 'package:mobimap/app/controllers/login_controller.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
 
 import '../../routes/app_routes.dart';
+import '../widgets/android/my_material_text_field_password.dart';
 
 class LoginPage extends GetView<LoginController> {
   LoginPage({super.key});
@@ -99,13 +100,12 @@ class LoginPage extends GetView<LoginController> {
                           hasError: controller.error.value,
                         ),
                         const SizedBox(height: 20),
-                        MyMaterialTextField.toPassword(
+                        MyMaterialTextFieldPassword(
                           controller: _passwordController,
                           hintText: "Password".tr,
                           errorText: "Digite a sua senha".tr,
                           maxLines: 1,
                           maxLength: null,
-                          obscureText: true,
                           onErrorInput: onErrorInputs,
                           hasError: controller.error.value,
                         ),

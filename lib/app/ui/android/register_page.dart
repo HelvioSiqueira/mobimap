@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:mobimap/app/controllers/register_controller.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
 
+import '../widgets/android/my_material_text_field_password.dart';
+
 class RegisterPage extends GetView<RegisterController> {
   RegisterPage({super.key});
 
@@ -17,7 +19,6 @@ class RegisterPage extends GetView<RegisterController> {
 
   @override
   Widget build(BuildContext context) {
-
     return GetX<RegisterController>(builder: (controller) {
       Widget iconButton = const Icon(Icons.check);
 
@@ -47,7 +48,8 @@ class RegisterPage extends GetView<RegisterController> {
         body: SingleChildScrollView(
           child: SafeArea(
             child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 120),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 120),
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.onPrimary,
@@ -75,7 +77,7 @@ class RegisterPage extends GetView<RegisterController> {
                           maxLength: null,
                         ),
                         const SizedBox(height: 10),
-                        MyMaterialTextField(
+                        MyMaterialTextFieldPassword(
                           controller: _firstPasswordController,
                           hintText: "Senha",
                           errorText: "",
@@ -83,7 +85,7 @@ class RegisterPage extends GetView<RegisterController> {
                           maxLength: null,
                         ),
                         const SizedBox(height: 10),
-                        MyMaterialTextField(
+                        MyMaterialTextFieldPassword(
                           controller: _secondPasswordController,
                           hintText: "Confirme a senha",
                           errorText: "",
@@ -94,7 +96,7 @@ class RegisterPage extends GetView<RegisterController> {
                         ElevatedButton.icon(
                           label: Text("CONCLUIR".tr),
                           icon: iconButton,
-                          onPressed: (){},
+                          onPressed: () {},
                           style: ElevatedButton.styleFrom(
                               minimumSize: const Size(180, 50),
                               padding: const EdgeInsets.all(16.0)),
