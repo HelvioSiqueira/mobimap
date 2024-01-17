@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mobimap/app/controllers/register_controller.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
@@ -8,8 +9,6 @@ class RegisterPage extends GetView<RegisterController> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _firstPasswordController =
       TextEditingController();
@@ -18,8 +17,9 @@ class RegisterPage extends GetView<RegisterController> {
 
   @override
   Widget build(BuildContext context) {
+
     return GetX<RegisterController>(builder: (controller) {
-      Widget iconButton = const Icon(Icons.login);
+      Widget iconButton = const Icon(Icons.check);
 
       if (controller.loading.isTrue) {
         iconButton = const SizedBox(
@@ -35,53 +35,74 @@ class RegisterPage extends GetView<RegisterController> {
       }
 
       return Scaffold(
-        body: SafeArea(
-          child: Form(
-            key: _formKey,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        appBar: AppBar(
+          forceMaterialTransparency: true,
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: const Icon(Icons.arrow_back)),
+        ),
+        body: SingleChildScrollView(
+          child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  MyMaterialTextField(
-                    controller: _nameController,
-                    hintText: "Nome",
-                    errorText: "",
-                    maxLines: 1,
-                    maxLength: null,
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 120),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Form(
+                  key: _formKey,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'CADASTRO'.tr,
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                        const SizedBox(height: 40),
+                        MyMaterialTextField(
+                          controller: _emailController,
+                          hintText: "Email",
+                          errorText: "",
+                          maxLines: 1,
+                          maxLength: null,
+                        ),
+                        const SizedBox(height: 10),
+                        MyMaterialTextField(
+                          controller: _firstPasswordController,
+                          hintText: "Senha",
+                          errorText: "",
+                          maxLines: 1,
+                          maxLength: null,
+                        ),
+                        const SizedBox(height: 10),
+                        MyMaterialTextField(
+                          controller: _secondPasswordController,
+                          hintText: "Confirme a senha",
+                          errorText: "",
+                          maxLines: 1,
+                          maxLength: null,
+                        ),
+                        SizedBox(height: 30),
+                        ElevatedButton.icon(
+                          label: Text("CONCLUIR".tr),
+                          icon: iconButton,
+                          onPressed: (){},
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(180, 50),
+                              padding: const EdgeInsets.all(16.0)),
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 10),
-                  MyMaterialTextField(
-                    controller: _lastNameController,
-                    hintText: "Sobrenome",
-                    errorText: "",
-                    maxLines: 1,
-                    maxLength: null,
-                  ),
-                  const SizedBox(height: 10),
-                  MyMaterialTextField(
-                    controller: _emailController,
-                    hintText: "Email",
-                    errorText: "",
-                    maxLines: 1,
-                    maxLength: null,
-                  ),
-                  const SizedBox(height: 10),
-                  MyMaterialTextField(
-                    controller: _firstPasswordController,
-                    hintText: "Senha",
-                    errorText: "",
-                    maxLines: 1,
-                    maxLength: null,
-                  ),
-                  const SizedBox(height: 10),
-                  MyMaterialTextField(
-                    controller: _secondPasswordController,
-                    hintText: "Confirme a senha",
-                    errorText: "",
-                    maxLines: 1,
-                    maxLength: null,
-                  ),
-                ],
+                ),
               ),
             ),
           ),

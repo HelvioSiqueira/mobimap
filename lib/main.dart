@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
       initialBinding: SplashArtBinding(),
       getPages: AppPages.routes,
       initialRoute: Routes.LOGIN,
+      themeMode: ThemeMode.dark,
       locale: const Locale('pt', 'BR'),
       translationsKeys: AppTranslations.translations,
     );
