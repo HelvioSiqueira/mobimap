@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobimap/app/utils/remove_spaces.dart';
 
 class MyMaterialTextField extends StatefulWidget {
   MyMaterialTextField(
@@ -26,6 +27,7 @@ class MyMaterialTextField extends StatefulWidget {
 }
 
 class _MyMaterialTextFieldState extends State<MyMaterialTextField> {
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -35,6 +37,8 @@ class _MyMaterialTextFieldState extends State<MyMaterialTextField> {
         if (widget.onErrorInput != null) {
           widget.onErrorInput!();
         }
+
+        widget.controller.removeSpaces();
       },
       maxLines: widget.maxLines,
       validator: widget.errorText != null

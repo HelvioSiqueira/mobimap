@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobimap/app/ui/widgets/android/strength_password.dart';
+import 'package:mobimap/app/utils/remove_spaces.dart';
 
 class MyMaterialTextFieldPassword extends StatefulWidget {
   MyMaterialTextFieldPassword({
@@ -83,8 +84,6 @@ class _MyMaterialTextFieldPasswordState
               });
             }
 
-
-
             if (text.contains(RegExp(
                 r'[\^$*.\[\]{}()?\-"!@#%&/\,><:;_~`+=' // <-- Notice the escaped symbols
                 "'" // <-- ' is added to the expression
@@ -97,6 +96,8 @@ class _MyMaterialTextFieldPasswordState
                 isSpecialChecked = false;
               });
             }
+
+            widget.controller.removeSpaces();
           },
           maxLines: widget.maxLines,
           validator: widget.errorText != null
