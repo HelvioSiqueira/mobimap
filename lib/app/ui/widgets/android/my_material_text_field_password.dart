@@ -14,6 +14,7 @@ class MyMaterialTextFieldPassword extends StatefulWidget {
     this.onErrorInput,
     this.hasError = false,
     this.strengthPassword = false,
+    this.onStrengthPassword,
   });
 
   final TextEditingController controller;
@@ -23,6 +24,16 @@ class MyMaterialTextFieldPassword extends StatefulWidget {
   final int? maxLength;
   bool hasError;
   bool strengthPassword;
+
+  void Function(
+    bool isLettersChecked,
+    bool isNumbersChecked,
+    bool isSpecialChecked,
+  )? onStrengthPassword = (
+    isLettersChecked,
+    isNumbersChecked,
+    isSpecialChecked,
+  ) {};
 
   void Function()? onErrorInput = () {};
 
@@ -98,6 +109,7 @@ class _MyMaterialTextFieldPasswordState
             }
 
             widget.controller.removeSpaces();
+            widget.onStrengthPassword!(isLettersChecked, isNumbersChecked, isSpecialChecked);
           },
           maxLines: widget.maxLines,
           validator: widget.errorText != null

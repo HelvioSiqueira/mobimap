@@ -39,7 +39,7 @@ class AppPages {
       name: Routes.REGISTER,
       page: () => RegisterPage(),
       binding: RegisterBinding(),
-      transition: Transition.rightToLeft
+      transition: Transition.rightToLeft,
     ),
   ];
 }
