@@ -17,14 +17,15 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-
     onErrorInputs() {
       controller.error.value = false;
+      controller.needVerifyUser.value = false;
     }
 
     return GetX<LoginController>(builder: (controller) {
       void signInUser() async {
-        if(await controller.doLogin(_emailController.text, _passwordController.text)){
+        if (await controller.doLogin(
+            _emailController.text, _passwordController.text)) {
           Get.offAndToNamed(Routes.HOME, arguments: [controller.authManager]);
         }
       }
@@ -44,15 +45,9 @@ class LoginPage extends GetView<LoginController> {
         );
       }
 
-      if(controller.needVerifyUser.value){
-        //LÓGICA
-      }
-
       return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        appBar: AppBar(
-          forceMaterialTransparency: true
-        ),
+        appBar: AppBar(forceMaterialTransparency: true),
         body: SingleChildScrollView(
           child: SafeArea(
             child: Padding(
@@ -61,6 +56,7 @@ class LoginPage extends GetView<LoginController> {
               child: Form(
                 key: _formKey,
                 child: Container(
+                  height: 500,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.onPrimary,
                     borderRadius: BorderRadius.circular(30),
@@ -76,13 +72,16 @@ class LoginPage extends GetView<LoginController> {
                               fontSize: 30,
                               color: Theme.of(context).colorScheme.primary),
                         ),
+
+                        //Message to show when has error
                         Visibility(
                           maintainSize: true,
                           maintainAnimation: true,
                           maintainState: true,
-                          visible: controller.error.value,
+                          visible: controller.error.value ||
+                              controller.needVerifyUser.value,
                           child: Text(
-                            "Não foi possivel realizar o login, verifique seu email e senha e tente novamente.".tr,
+                            controller.errorMessage,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 11,
@@ -90,6 +89,8 @@ class LoginPage extends GetView<LoginController> {
                           ),
                         ),
                         const SizedBox(height: 10),
+
+                        //TextField to email
                         MyMaterialTextField(
                           controller: _emailController,
                           hintText: "Email".tr,
@@ -100,6 +101,8 @@ class LoginPage extends GetView<LoginController> {
                           hasError: controller.error.value,
                         ),
                         const SizedBox(height: 20),
+
+                        //TextField to password
                         MyMaterialTextFieldPassword(
                           controller: _passwordController,
                           hintText: "Password".tr,
@@ -110,12 +113,15 @@ class LoginPage extends GetView<LoginController> {
                           hasError: controller.error.value,
                         ),
                         const SizedBox(height: 20),
+
+                        //Button to make login
                         ElevatedButton.icon(
                           label: Text("LOGAR".tr),
                           icon: iconButton,
                           onPressed: controller.loading.isTrue
                               ? null
                               : () async {
+                                  _formKey.currentState!.validate();
                                   signInUser();
                                 },
                           style: ElevatedButton.styleFrom(
@@ -125,9 +131,11 @@ class LoginPage extends GetView<LoginController> {
                         TextButton(
                             onPressed: () {
                               Get.toNamed(Routes.REGISTER);
-                            }, child: Text('Cadastrar'.tr)),
-                        TextButton(onPressed: (){
-                        }, child: Text('Esqueci minha senha'.tr))
+                            },
+                            child: Text('Cadastrar'.tr)),
+                        TextButton(
+                            onPressed: () {},
+                            child: Text('Esqueci minha senha'.tr))
                       ],
                     ),
                   ),

@@ -49,6 +49,7 @@ class _MyMaterialTextFieldState extends State<MyMaterialTextField> {
               return null;
             }
           : null,
+      autovalidateMode:AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
         alignLabelWithHint: false,
         enabledBorder: OutlineInputBorder(

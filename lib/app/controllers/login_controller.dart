@@ -2,26 +2,32 @@ import 'package:get/get.dart';
 import 'package:mobimap/app/utils/auth_manager.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
-class LoginController extends GetxController{
+class LoginController extends GetxController {
   LoginController({required this.authManager});
 
   final AuthManager authManager;
   RxBool loading = false.obs;
   RxBool error = false.obs;
   RxBool needVerifyUser = false.obs;
+  String errorMessage = "";
 
-   Future<bool> doLogin(String email, String password) async {
+  Future<bool> doLogin(String email, String password) async {
     loading(true);
 
     var result = await authManager.doLogin(email, password);
 
     loading(false);
-    if(result is Failure){
+    if (result is Failure) {
+      errorMessage =
+          "Não foi possivel realizar o login, verifique seu email e senha e tente novamente."
+              .tr;
       error.value = true;
       return false;
-    } else if(result is Success){
+    } else if (result is Success) {
       return true;
-    } else if(result is NoVerifyUser){
+    } else if (result is NoVerifyUser) {
+      errorMessage =
+          "Primeiro faça a verificação do seu email e tente novamente.".tr;
       needVerifyUser.value = true;
       return false;
     } else {
@@ -30,18 +36,17 @@ class LoginController extends GetxController{
   }
 
   Future<bool> resetPassword(String email) async {
-     loading(true);
-     var result = await authManager.doResetPassword(email);
-     loading(false);
+    loading(true);
+    var result = await authManager.doResetPassword(email);
+    loading(false);
 
-     if(result is Failure){
-       error.value = true;
-       return false;
-     } else if(result is Success){
-       return true;
-     } else {
-       return false;
-     }
+    if (result is Failure) {
+      error.value = true;
+      return false;
+    } else if (result is Success) {
+      return true;
+    } else {
+      return false;
+    }
   }
-
 }

@@ -100,7 +100,9 @@ class RegisterPage extends GetView<RegisterController> {
                             ElevatedButton.icon(
                               label: Text("CONCLUIR".tr),
                               icon: iconButton,
-                              onPressed: controller.activateButton.value ? () {} : null,
+                              onPressed: controller.activateButton.value ? () {
+                                _formKey.currentState!.validate();
+                              } : null,
                               style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(180, 50),
                                   padding: const EdgeInsets.all(16.0)),

@@ -109,7 +109,9 @@ class _MyMaterialTextFieldPasswordState
             }
 
             widget.controller.removeSpaces();
-            widget.onStrengthPassword!(isLettersChecked, isNumbersChecked, isSpecialChecked);
+            if(widget.onStrengthPassword != null){
+              widget.onStrengthPassword!(isLettersChecked, isNumbersChecked, isSpecialChecked);
+            }
           },
           maxLines: widget.maxLines,
           validator: widget.errorText != null
@@ -120,6 +122,7 @@ class _MyMaterialTextFieldPasswordState
                   return null;
                 }
               : null,
+          autovalidateMode:AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             alignLabelWithHint: false,
             enabledBorder: OutlineInputBorder(
