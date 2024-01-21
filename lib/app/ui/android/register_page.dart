@@ -128,11 +128,16 @@ class RegisterPage extends GetView<RegisterController> {
                           label: Text("CONCLUIR".tr),
                           icon: iconButton,
                           onPressed: controller.activateButton.value
-                              ? () {
+                              ? () async {
                                   if (_firstPasswordController.text ==
                                       _secondPasswordController.text) {
-                                    if(_formKey.currentState!.validate()){
-
+                                    if (_formKey.currentState!.validate()) {
+                                      if (await controller.registerNewUser(
+                                        _emailController.text,
+                                        _firstPasswordController.text,
+                                      )) {
+                                        print("Cheque seu email e faça a verificação");
+                                      }
                                     }
                                   } else {
                                     controller.error.value = true;
