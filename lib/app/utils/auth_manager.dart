@@ -15,7 +15,7 @@ class AuthManager {
 
       if (!userCredential.user!.emailVerified) {
         firebaseInstance.signOut();
-        return const NoVerifyUser('verify');
+        return const Failure('no-verify');
       }
 
       return const Success('success');

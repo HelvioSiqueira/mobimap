@@ -40,8 +40,6 @@ class RegisterController extends GetxController {
       case Failure<String, String>(exception: String exception):
         _handleTypeException(exception);
         return false;
-      case NoVerifyUser<String, String>():
-        return false;
     }
   }
 

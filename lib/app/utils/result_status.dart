@@ -11,8 +11,3 @@ final class Failure<S, E extends String> extends Result<S, E> {
   const Failure(this.exception);
   final E exception;
 }
-
-final class NoVerifyUser<S, E extends String> extends Result<S, E> {
-  const NoVerifyUser(this.value);
-  final S value;
-}
