@@ -9,6 +9,7 @@ class RegisterController extends GetxController{
   final AuthManager authManager;
   RxBool loading = false.obs;
   RxBool error = false.obs;
+  RxString errorMessage = "".obs;
 
   RxBool activateButton = false.obs;
 

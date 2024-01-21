@@ -56,7 +56,6 @@ class LoginPage extends GetView<LoginController> {
               child: Form(
                 key: _formKey,
                 child: Container(
-                  height: 500,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.onPrimary,
                     borderRadius: BorderRadius.circular(30),
