@@ -131,7 +131,9 @@ class RegisterPage extends GetView<RegisterController> {
                               ? () {
                                   if (_firstPasswordController.text ==
                                       _secondPasswordController.text) {
-                                    _formKey.currentState!.validate();
+                                    if(_formKey.currentState!.validate()){
+
+                                    }
                                   } else {
                                     controller.error.value = true;
                                     controller.errorMessage.value =

@@ -5,7 +5,7 @@ class AuthManager {
   FirebaseAuth firebaseInstance = FirebaseAuth.instance;
   late UserCredential userCredential;
 
-  Future<Result<String, Exception>> doLogin(
+  Future<Result<String, String>> doLogin(
       String email, String password) async {
     try {
       userCredential = await firebaseInstance.signInWithEmailAndPassword(
@@ -13,7 +13,7 @@ class AuthManager {
         password: password,
       );
 
-      if(!userCredential.user!.emailVerified){
+      if (!userCredential.user!.emailVerified) {
         firebaseInstance.signOut();
         return const NoVerifyUser('verify');
       }
@@ -21,28 +21,42 @@ class AuthManager {
       return const Success('success');
     } on FirebaseAuthException catch (e) {
       print(e.code);
-      return Failure(e);
+      return Failure(e.code);
     }
   }
 
-  Future<Result<String, Exception>> doResetPassword(String email) async {
+  Future<Result<String, String>> doResetPassword(String email) async {
     try {
       await firebaseInstance.sendPasswordResetEmail(email: email);
 
       return const Success('success');
     } on FirebaseAuthException catch (e) {
       print(e.code);
-      return Failure(e);
+      return Failure(e.code);
     }
   }
 
-  Future<Result<String, Exception>> verifyEmail() async {
+  Future<Result<String, String>> verifyEmail() async {
     try {
       await userCredential.user?.sendEmailVerification();
       return const Success('success');
     } on FirebaseAuthException catch (e) {
       print(e.code);
-      return Failure(e);
+      return Failure(e.code);
+    }
+  }
+
+  Future<Result<String, String>> doRegisterNewUser(
+      String email, String password) async {
+    try {
+      userCredential = await firebaseInstance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return const Success('success');
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+      return Failure(e.code);
     }
   }
 }
