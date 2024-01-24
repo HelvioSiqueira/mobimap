@@ -4,4 +4,5 @@ abstract class Routes{
   static const NEWAP = '/newap';
   static const LOGIN = '/login';
   static const REGISTER = '/register';
+  static const VERIFYEMAIL = '/verifyEmail';
 }

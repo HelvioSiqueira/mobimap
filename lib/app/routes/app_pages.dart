@@ -10,6 +10,7 @@ import 'package:mobimap/app/ui/android/login_page.dart';
 import 'package:mobimap/app/ui/android/new_ap_page.dart';
 import 'package:mobimap/app/ui/android/register_page.dart';
 import 'package:mobimap/app/ui/android/splash_art_page.dart';
+import 'package:mobimap/app/ui/android/veifiry_email_page.dart';
 
 class AppPages {
   static final routes = [
@@ -41,5 +42,6 @@ class AppPages {
       binding: RegisterBinding(),
       transition: Transition.rightToLeft,
     ),
+    GetPage(name: Routes.VERIFYEMAIL, page: () => const VerifyEmailPage())
   ];
 }

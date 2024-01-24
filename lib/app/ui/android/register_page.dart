@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mobimap/app/controllers/register_controller.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
 
+import '../../routes/app_routes.dart';
 import '../widgets/android/my_material_text_field_password.dart';
 
 class RegisterPage extends GetView<RegisterController> {
@@ -136,7 +137,7 @@ class RegisterPage extends GetView<RegisterController> {
                                         _emailController.text,
                                         _firstPasswordController.text,
                                       )) {
-                                        print("Cheque seu email e faça a verificação");
+                                        Get.offAndToNamed(Routes.VERIFYEMAIL, arguments: [_emailController.text]);
                                       }
                                     }
                                   } else {

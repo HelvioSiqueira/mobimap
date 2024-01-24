@@ -53,6 +53,9 @@ class AuthManager {
         email: email,
         password: password,
       );
+
+      await userCredential.user!.sendEmailVerification();
+
       return const Success('success');
     } on FirebaseAuthException catch (e) {
       print(e.code);

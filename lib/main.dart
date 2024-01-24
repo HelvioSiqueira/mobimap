@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       initialBinding: SplashArtBinding(),
       getPages: AppPages.routes,
-      initialRoute: Routes.LOGIN,
+      initialRoute: Routes.HOME,
       themeMode: ThemeMode.dark,
       locale: const Locale('pt', 'BR'),
       translationsKeys: AppTranslations.translations,
