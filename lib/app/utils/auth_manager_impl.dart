@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
-class AuthManager {
+class AuthManagerImpl {
   FirebaseAuth firebaseInstance = FirebaseAuth.instance;
   late UserCredential userCredential;
 

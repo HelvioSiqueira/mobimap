@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
-import 'package:mobimap/app/utils/auth_manager.dart';
+import 'package:mobimap/app/utils/auth_manager_impl.dart';
 import 'package:mobimap/app/utils/errors/errors_login.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
 class LoginController extends GetxController {
   LoginController({required this.authManager});
 
-  final AuthManager authManager;
+  final AuthManagerImpl authManager;
   RxBool loading = false.obs;
   RxBool error = false.obs;
   RxBool needVerifyUser = false.obs;

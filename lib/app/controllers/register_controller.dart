@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
-import '../utils/auth_manager.dart';
+import '../utils/auth_manager_impl.dart';
 import '../utils/errors/errors_create_user.dart';
 
 class RegisterController extends GetxController {
   RegisterController({required this.authManager});
 
-  final AuthManager authManager;
+  final AuthManagerImpl authManager;
   RxBool loading = false.obs;
   RxBool error = false.obs;
   RxString errorMessage = "".obs;
