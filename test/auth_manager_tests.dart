@@ -13,47 +13,67 @@ class AuthManagerTest extends Mock implements AuthManager {}
 Future<void> main() async {
   late AuthManagerTest authManager;
 
-  var email = "helvio@gmail.com";
-  var password = "123";
-
   setUpAll(() {
     authManager = MockAuthManagerTest();
-
-    provideDummyBuilder<Result<String, String>>((parent, invocation){
-
-      if (email == "helvio@gmail.com" && password == "123") {
-        return const Success("success");
-      } else if (email == "helvio@gmail.com" && password != "123") {
-        return const Failure(ErrorsLogin.invalidCredential);
-      } else if (email == "pedro@gmail.com" && password == "123") {
-        return const Failure(ErrorsLogin.userNotFound);
-      } else {
-        return const Failure("other");
-      }
-    });
   });
 
   test('should return Success', () async {
-    const success = Success("success");
-    email = "helvio@gmail.com";
-    password = "123";
+    late Result<String, String> result;
+    var email = "helvio@gmail.com";
+    var password = "123";
 
-    when(authManager.doLogin(email, password)).thenAnswer((_) async => success);
-
-    final login = await authManager.doLogin("helvio@gmail.com", "123");
-
-    expect(login, success);
-  });
-
-  test('should return Failure as invalidCredential', () async {
-    const result = Failure(ErrorsLogin.invalidCredential);
-    email = "helvio@gmail.com";
-    password = "123abc";
-
+    provideDummyBuilder<Result<String, String>>((parent, invocation) {
+      if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          invocation.positionalArguments[1] == "123") {
+        result = const Success("success");
+        return const Success("success");
+      } else if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          invocation.positionalArguments[1] != "123") {
+        result = const Failure(ErrorsLogin.invalidCredential);
+        return const Failure(ErrorsLogin.invalidCredential);
+      } else if (invocation.positionalArguments[0] == "pedro@gmail.com" &&
+          invocation.positionalArguments[1] == "123") {
+        result = const Failure(ErrorsLogin.userNotFound);
+        return const Failure(ErrorsLogin.userNotFound);
+      } else {
+        result = const Failure("other");
+        return const Failure("other");
+      }
+    });
     when(authManager.doLogin(email, password)).thenAnswer((_) async => result);
 
     final login = await authManager.doLogin(email, password);
 
-    expect(login, result);
+    expect(login, const Success("success"));
+  });
+
+  test('should return Failure as invalidCredential', () async {
+    late Result<String, String> result;
+    var email = "helvio@gmail.com";
+    var password = "123abc";
+
+    provideDummyBuilder<Result<String, String>>((parent, invocation) {
+      if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          invocation.positionalArguments[1] == "123") {
+        result = const Success("success");
+        return const Success("success");
+      } else if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          invocation.positionalArguments[1] != "123") {
+        result = const Failure(ErrorsLogin.invalidCredential);
+        return const Failure(ErrorsLogin.invalidCredential);
+      } else if (invocation.positionalArguments[0] == "pedro@gmail.com" &&
+          invocation.positionalArguments[1] == "123") {
+        result = const Failure(ErrorsLogin.userNotFound);
+        return const Failure(ErrorsLogin.userNotFound);
+      } else {
+        result = const Failure("other");
+        return const Failure("other");
+      }
+    });
+    when(authManager.doLogin(email, password)).thenAnswer((_) async => result);
+
+    final login = await authManager.doLogin(email, password);
+
+    expect(login, const Failure(ErrorsLogin.invalidCredential));
   });
 }
