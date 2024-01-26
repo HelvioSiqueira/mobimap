@@ -26,19 +26,18 @@ Future<void> main() async {
       if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
           invocation.positionalArguments[1] == "123") {
         result = const Success("success");
-        return const Success("success");
       } else if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
-          invocation.positionalArguments[1] != "123") {
+          checkIfPasswordIsValid(invocation.positionalArguments[1])) {
         result = const Failure(ErrorsLogin.invalidCredential);
-        return const Failure(ErrorsLogin.invalidCredential);
-      } else if (invocation.positionalArguments[0] == "pedro@gmail.com" &&
+      } else if (invocation.positionalArguments[0] != "helvio@gmail.com" &&
           invocation.positionalArguments[1] == "123") {
         result = const Failure(ErrorsLogin.userNotFound);
-        return const Failure(ErrorsLogin.userNotFound);
-      } else {
-        result = const Failure("other");
-        return const Failure("other");
+      } else if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          invocation.positionalArguments[1] != "123") {
+        result = const Failure(ErrorsLogin.wrongPassword);
       }
+
+      return const Failure("other");
     });
     when(authManager.doLogin(email, password)).thenAnswer((_) async => result);
 
@@ -47,7 +46,7 @@ Future<void> main() async {
     expect(login, const Success("success"));
   });
 
-  test('should return Failure as invalidCredential', () async {
+  test('should return Failure as wrongPassword', () async {
     late Result<String, String> result;
     var email = "helvio@gmail.com";
     var password = "123abc";
@@ -56,24 +55,96 @@ Future<void> main() async {
       if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
           invocation.positionalArguments[1] == "123") {
         result = const Success("success");
-        return const Success("success");
       } else if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
-          invocation.positionalArguments[1] != "123") {
+          checkIfPasswordIsValid(invocation.positionalArguments[1])) {
         result = const Failure(ErrorsLogin.invalidCredential);
-        return const Failure(ErrorsLogin.invalidCredential);
-      } else if (invocation.positionalArguments[0] == "pedro@gmail.com" &&
+      } else if (invocation.positionalArguments[0] != "helvio@gmail.com" &&
           invocation.positionalArguments[1] == "123") {
         result = const Failure(ErrorsLogin.userNotFound);
-        return const Failure(ErrorsLogin.userNotFound);
-      } else {
-        result = const Failure("other");
-        return const Failure("other");
+      } else if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          invocation.positionalArguments[1] != "123") {
+        result = const Failure(ErrorsLogin.wrongPassword);
       }
+
+      return const Failure("other");
     });
     when(authManager.doLogin(email, password)).thenAnswer((_) async => result);
 
     final login = await authManager.doLogin(email, password);
 
-    expect(login, const Failure(ErrorsLogin.invalidCredential));
+    expect(login, const Failure(ErrorsLogin.wrongPassword));
   });
+
+  test('should return Failure as userNotFound', () async {
+    late Result<String, String> result;
+    var email = "helvio123@gmail.com";
+    var password = "123";
+
+    provideDummyBuilder<Result<String, String>>((parent, invocation) {
+      if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          invocation.positionalArguments[1] == "123") {
+        result = const Success("success");
+      } else if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          checkIfPasswordIsValid(invocation.positionalArguments[1])) {
+        result = const Failure(ErrorsLogin.invalidCredential);
+      } else if (invocation.positionalArguments[0] != "helvio@gmail.com" &&
+          invocation.positionalArguments[1] == "123") {
+        result = const Failure(ErrorsLogin.userNotFound);
+      } else if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          invocation.positionalArguments[1] != "123") {
+        result = const Failure(ErrorsLogin.wrongPassword);
+      }
+
+      return const Failure("other");
+    });
+    when(authManager.doLogin(email, password)).thenAnswer((_) async => result);
+
+    final login = await authManager.doLogin(email, password);
+
+    expect(login, const Failure(ErrorsLogin.userNotFound));
+  });
+
+  test('should return Failure as invalidCredential', () async {
+    late Result<String, String> result;
+    var email = "helvio@gmail.com";
+    var password = "123abc";
+
+    print(checkIfPasswordIsValid(password));
+
+    provideDummyBuilder<Result<String, String>>((parent, invocation) {
+      if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          invocation.positionalArguments[1] == "123") {
+        result = const Success("success");
+      } else if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          checkIfPasswordIsValid(invocation.positionalArguments[1])) {
+        result = const Failure(ErrorsLogin.invalidCredential);
+      } else if (invocation.positionalArguments[0] != "helvio@gmail.com" &&
+          invocation.positionalArguments[1] == "123") {
+        result = const Failure(ErrorsLogin.userNotFound);
+      } else if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
+          invocation.positionalArguments[1] != "123") {
+        result = const Failure(ErrorsLogin.wrongPassword);
+      }
+
+      return const Failure("other");
+    });
+    when(authManager.doLogin(email, password)).thenAnswer((_) async => result);
+
+    final login = await authManager.doLogin(email, password);
+
+    expect(login, const Failure(ErrorsLogin.wrongPassword));
+  });
+}
+
+bool checkIfPasswordIsValid(String password) {
+  if (password.length >= 8 &&
+      password.contains(RegExp(r'\d')) &&
+      password.contains(RegExp(r'[a-z]', caseSensitive: false)) &&
+      password.contains(RegExp(r'[\^$*.\[\]{}()?\-"!@#%&/\,><:;_~`+='
+          "'"
+          ']'))) {
+    return true;
+  } else {
+    return false;
+  }
 }
