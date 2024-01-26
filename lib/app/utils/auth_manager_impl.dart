@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mobimap/app/utils/auth_manager.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
-class AuthManagerImpl {
+class AuthManagerImpl extends AuthManager {
   FirebaseAuth firebaseInstance = FirebaseAuth.instance;
   late UserCredential userCredential;
 
+  @override
   Future<Result<String, String>> doLogin(
       String email, String password) async {
     try {
@@ -25,6 +27,7 @@ class AuthManagerImpl {
     }
   }
 
+  @override
   Future<Result<String, String>> doResetPassword(String email) async {
     try {
       await firebaseInstance.sendPasswordResetEmail(email: email);
@@ -36,6 +39,7 @@ class AuthManagerImpl {
     }
   }
 
+  @override
   Future<Result<String, String>> verifyEmail() async {
     try {
       await userCredential.user?.sendEmailVerification();
