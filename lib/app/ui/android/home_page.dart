@@ -18,7 +18,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Theme.of(context).colorScheme.primaryContainer,
+        statusBarColor: Theme.of(context).colorScheme.background,
       ),
     );
 

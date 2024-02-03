@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:mobimap/app/data/providers/firebase_database_manager.dart';
 import 'package:mobimap/app/ui/widgets/android/my_chip_list.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_field.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
 import 'package:mobimap/app/ui/widgets/android/my_radio_button_group.dart';
+import 'package:mobimap/app/utils/fire_database_url.dart';
 
 import '../../controllers/new_ap_controller.dart';
 
@@ -13,6 +15,8 @@ class NewAPPage extends GetView<NewAPController> {
   NewAPPage({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  FirebaseDatabaseManager firebaseDatabaseManager = Get.find();
 
   final TextEditingController _nameAPController = TextEditingController();
   final _selectedTypesOfAccessibility = <String>[];
@@ -23,7 +27,7 @@ class NewAPPage extends GetView<NewAPController> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Theme.of(context).colorScheme.primary,
+        statusBarColor: Theme.of(context).colorScheme.background,
       ),
     );
 
@@ -51,13 +55,31 @@ class NewAPPage extends GetView<NewAPController> {
           title: Text("Criar ponto de acessibilidade".tr),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _formKey.currentState!.validate();
-
+          onPressed: () async {
             controller.validateForm(
               _selectedQualityOfAccessibility,
               _selectedTypesOfAccessibility,
             );
+
+            if (_formKey.currentState!.validate() &&
+                _selectedQualityOfAccessibility.isNotEmpty &&
+                _selectedTypesOfAccessibility.isNotEmpty) {
+              var ref = firebaseDatabaseManager.databaseRef
+                  .refFromURL(FireDatabaseUrl.AC);
+
+              await ref.push().set({
+                'ap_name': _nameAPController.text,
+                'ap_types': _selectedTypesOfAccessibility.toSet().toString(),
+                'ap_quality': _selectedQualityOfAccessibility,
+                'comment': _commentAPController.text
+              });
+
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                      "Ponto de acessibilidade adicionado com sucesso".tr)));
+
+              Get.back();
+            }
           },
           child: const Icon(FontAwesomeIcons.check),
         ),
@@ -121,7 +143,9 @@ class NewAPPage extends GetView<NewAPController> {
                     errorText: null,
                     maxLength: 200,
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.08,)
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                  )
                 ],
               ),
             ),

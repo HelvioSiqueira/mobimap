@@ -109,8 +109,6 @@ Future<void> main() async {
     var email = "helvio@gmail.com";
     var password = "123abc";
 
-    print(checkIfPasswordIsValid(password));
-
     provideDummyBuilder<Result<String, String>>((parent, invocation) {
       if (invocation.positionalArguments[0] == "helvio@gmail.com" &&
           invocation.positionalArguments[1] == "123") {
