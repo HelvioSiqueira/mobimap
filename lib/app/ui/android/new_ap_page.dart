@@ -69,7 +69,13 @@ class NewAPPage extends GetView<NewAPController> {
 
               await ref.push().set({
                 'ap_name': _nameAPController.text,
-                'ap_types': _selectedTypesOfAccessibility.toSet().toString(),
+                'ap_types': {
+                  'Rampa': _selectedTypesOfAccessibility.contains('Rampa'),
+                  'Banheiro': _selectedTypesOfAccessibility.contains('Banheiro'),
+                  'Corrimao': _selectedTypesOfAccessibility.contains('Corrimão'),
+                  'Trilhas': _selectedTypesOfAccessibility.contains('Trilhas'),
+                  'Porta': _selectedTypesOfAccessibility.contains('Porta')
+                },
                 'ap_quality': _selectedQualityOfAccessibility,
                 'comment': _commentAPController.text
               });
