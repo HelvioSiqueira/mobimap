@@ -126,7 +126,7 @@ class NewAPPage extends GetView<NewAPController> {
                   const SizedBox(height: 15),
                   Obx(() {
                     if (controller.loadingAddress.value) {
-                      return Center(child: const CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
 
                     return MyMaterialField(
