@@ -98,6 +98,7 @@ class NewAPPage extends GetView<NewAPController> {
                     hintText: "Nome do ponto",
                     errorText: "O ponto precisa ter um nome",
                     maxLength: 50,
+                    removeWhiteSpaces: false,
                   ),
                   const SizedBox(
                     height: 15,
@@ -143,6 +144,7 @@ class NewAPPage extends GetView<NewAPController> {
                     hintText: "Comentario",
                     errorText: null,
                     maxLength: 200,
+                    removeWhiteSpaces: false,
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.08,

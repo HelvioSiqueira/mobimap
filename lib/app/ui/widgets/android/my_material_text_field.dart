@@ -11,7 +11,8 @@ class MyMaterialTextField extends StatefulWidget {
       required this.maxLines,
       required this.maxLength,
       this.onErrorInput,
-      this.hasError = false});
+      this.hasError = false,
+      this.removeWhiteSpaces = true});
 
   final TextEditingController controller;
   final String hintText;
@@ -19,6 +20,7 @@ class MyMaterialTextField extends StatefulWidget {
   final int maxLines;
   final int? maxLength;
   final bool hasError;
+  final bool removeWhiteSpaces;
 
   void Function()? onErrorInput = () {};
 
@@ -38,7 +40,9 @@ class _MyMaterialTextFieldState extends State<MyMaterialTextField> {
           widget.onErrorInput!();
         }
 
-        widget.controller.removeSpaces();
+        if(widget.removeWhiteSpaces){
+          widget.controller.removeSpaces();
+        }
       },
       maxLines: widget.maxLines,
       validator: widget.errorText != null
