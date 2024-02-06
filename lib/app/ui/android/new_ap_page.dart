@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:mobimap/app/data/model/accessibility_point.dart';
 import 'package:mobimap/app/data/providers/firebase_database_manager.dart';
 import 'package:mobimap/app/ui/widgets/android/my_chip_list.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_field.dart';
@@ -64,21 +65,15 @@ class NewAPPage extends GetView<NewAPController> {
             if (_formKey.currentState!.validate() &&
                 _selectedQualityOfAccessibility.isNotEmpty &&
                 _selectedTypesOfAccessibility.isNotEmpty) {
-              var ref = firebaseDatabaseManager.databaseRef
-                  .refFromURL(FireDatabaseUrl.AC);
 
-              await ref.push().set({
-                'ap_name': _nameAPController.text,
-                'ap_types': {
-                  'Rampa': _selectedTypesOfAccessibility.contains('Rampa'),
-                  'Banheiro': _selectedTypesOfAccessibility.contains('Banheiro'),
-                  'Corrimao': _selectedTypesOfAccessibility.contains('Corrimão'),
-                  'Trilhas': _selectedTypesOfAccessibility.contains('Trilhas'),
-                  'Porta': _selectedTypesOfAccessibility.contains('Porta')
-                },
-                'ap_quality': _selectedQualityOfAccessibility,
-                'comment': _commentAPController.text
-              });
+              var ap = AccessibilityPoint(
+                apName: _nameAPController.text,
+                apTypes: _selectedTypesOfAccessibility,
+                apQuality: _selectedQualityOfAccessibility,
+                comment: _commentAPController.text,
+              );
+
+              firebaseDatabaseManager.addAccessibilityPointToDatabase(ap);
 
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text(
