@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:mobimap/app/data/model/accessibility_point.dart';
 import 'package:mobimap/app/data/providers/firebase_database_manager.dart';
@@ -32,7 +33,9 @@ class NewAPPage extends GetView<NewAPController> {
       ),
     );
 
-    return GetX<NewAPController>(builder: (controller) {
+    return GetX<NewAPController>(initState: (_) {
+      controller.getAddressByLocation();
+    }, builder: (controller) {
       void onSelectedQuality(String quality) {
         _selectedQualityOfAccessibility = quality;
         controller.isQualityEmpty.value = false;
@@ -65,7 +68,6 @@ class NewAPPage extends GetView<NewAPController> {
             if (_formKey.currentState!.validate() &&
                 _selectedQualityOfAccessibility.isNotEmpty &&
                 _selectedTypesOfAccessibility.isNotEmpty) {
-
               var ap = AccessibilityPoint(
                 apName: _nameAPController.text,
                 apTypes: _selectedTypesOfAccessibility,
@@ -122,10 +124,16 @@ class NewAPPage extends GetView<NewAPController> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  const MyMaterialField(
-                    hintText: '2652 Macedo Rodovia - Buriti, AM / 05880-245',
-                    prefixIcon: Icon(Icons.location_on),
-                  ),
+                  Obx(() {
+                    if (controller.loadingAddress.value) {
+                      return Center(child: const CircularProgressIndicator());
+                    }
+
+                    return MyMaterialField(
+                      hintText: controller.placemark.value,
+                      prefixIcon: const Icon(Icons.location_on),
+                    );
+                  }),
                   const SizedBox(height: 15),
                   MyChipList(
                     selectedTypesOfAccessibility: _selectedTypesOfAccessibility,
