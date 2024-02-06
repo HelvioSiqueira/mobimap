@@ -73,6 +73,9 @@ class NewAPPage extends GetView<NewAPController> {
                 apTypes: _selectedTypesOfAccessibility,
                 apQuality: _selectedQualityOfAccessibility,
                 comment: _commentAPController.text,
+                latitude: controller.location.latitude,
+                longitude: controller.location.longitude,
+                address: controller.placemark.value
               );
 
               firebaseDatabaseManager.addAccessibilityPointToDatabase(ap);
