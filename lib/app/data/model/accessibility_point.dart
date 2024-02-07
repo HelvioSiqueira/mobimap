@@ -9,6 +9,7 @@ class AccessibilityPoint {
     required this.latitude,
     required this.longitude,
     required this.address,
+    required this.creator,
   });
 
   String? apName;
@@ -18,6 +19,7 @@ class AccessibilityPoint {
   double? latitude;
   double? longitude;
   String? address;
+  String? creator;
 
   AccessibilityPoint.fromJson(Map<String, dynamic> json) {
     apName = json["apName"];
@@ -26,6 +28,7 @@ class AccessibilityPoint {
     latitude = json["latitude"];
     longitude = json["longitude"];
     address = json["address"];
+    creator = json["creator"];
 
     apTypes = [];
 
@@ -49,6 +52,7 @@ class AccessibilityPoint {
     map["latitude"] = latitude;
     map["longitude"] = longitude;
     map["address"] = address;
+    map["creator"] = creator;
 
     if (apTypes != null) {
       map["apTypes"] = apTypes;

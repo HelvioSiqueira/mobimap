@@ -1,7 +1,7 @@
 import 'result_status.dart';
 
 abstract class AuthManager {
-  Future<Result<String, String>> doLogin(String login, String password);
+  Future<Result<String, String>> doLogin(String email, String password);
 
   Future<Result<String, String>> doResetPassword(String email);
 

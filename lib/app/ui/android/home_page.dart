@@ -27,6 +27,11 @@ class HomePage extends GetView<HomeController> {
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
+
+          if(snapshot.hasData){
+            Get.lazyPut<User?>(() => snapshot.data);
+          }
+
           return SafeArea(
             child: Scaffold(
                 floatingActionButton: snapshot.hasData
