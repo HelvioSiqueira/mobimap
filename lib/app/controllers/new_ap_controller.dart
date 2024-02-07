@@ -39,8 +39,6 @@ class NewAPController extends GetxController {
 
     Placemark firstPlacemark = placemarks.first;
 
-    Logger().i(placemarks.first);
-
     placemark.value = "${firstPlacemark.country},"
         " ${firstPlacemark.subAdministrativeArea},"
         " ${firstPlacemark.administrativeArea},"

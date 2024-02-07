@@ -20,23 +20,25 @@ class AccessibilityPoint {
   double? longitude;
   String? address;
   String? creator;
+  String? apId;
 
-  AccessibilityPoint.fromJson(Map<String, dynamic> json) {
-    apName = json["apName"];
-    apQuality = json["apQuality"];
-    comment = json["comment"];
-    latitude = json["latitude"];
-    longitude = json["longitude"];
-    address = json["address"];
-    creator = json["creator"];
+  AccessibilityPoint.fromJson(Map<Object?, Object?> json, String id) {
+    apId = id;
+    apName = json["apName"] as String;
+    apQuality = json["apQuality"] as String;
+    comment = json["comment"] as String;
+    latitude = json["latitude"] as double;
+    longitude = json["longitude"] as double;
+    address = json["address"] as String;
+    creator = json["creator"] as String;
 
     apTypes = [];
 
     if (json["apTypes"] != null) {
       try {
-        json["apTypes"].forEach((type) {
+        for (var type in (json["apTypes"] as List<Object?>)) {
           apTypes!.add(type.toString());
-        });
+        }
       } catch (e) {
         Logger().e(e);
       }
@@ -59,5 +61,18 @@ class AccessibilityPoint {
     }
 
     return map;
+  }
+
+  @override
+  String toString() {
+    return 'AccessibilityPoint{apName: $apName,'
+        ' ipId: $apId,'
+        ' apTypes: $apTypes,'
+        ' apQuality: $apQuality,'
+        ' comment: $comment,'
+        ' latitude: $latitude,'
+        ' longitude: $longitude,'
+        ' address: $address,'
+        ' creator: $creator}';
   }
 }
