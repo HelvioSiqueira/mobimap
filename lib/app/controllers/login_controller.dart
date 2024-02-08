@@ -1,13 +1,14 @@
 import 'package:get/get.dart';
+import 'package:mobimap/app/data/repository/login_repository.dart';
 import 'package:mobimap/app/utils/errors/errors_login.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
 import '../data/providers/auth_manager_impl.dart';
 
 class LoginController extends GetxController {
-  LoginController({required this.authManager});
+  LoginController({required this.loginRepository});
 
-  final AuthManagerImpl authManager;
+  final LoginRepository loginRepository;
   RxBool loading = false.obs;
   RxBool error = false.obs;
   RxBool needVerifyUser = false.obs;
@@ -16,7 +17,7 @@ class LoginController extends GetxController {
   Future<bool> doLogin(String email, String password) async {
     loading(true);
 
-    var result = await authManager.doLogin(email, password);
+    var result = await loginRepository.doLogin(email, password);
 
     loading(false);
 

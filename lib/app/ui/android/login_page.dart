@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mobimap/app/controllers/login_controller.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
@@ -26,7 +25,7 @@ class LoginPage extends GetView<LoginController> {
       void signInUser() async {
         if (await controller.doLogin(
             _emailController.text, _passwordController.text)) {
-          Get.offAndToNamed(Routes.HOME, arguments: [controller.authManager]);
+          Get.offAndToNamed(Routes.HOME);
         }
       }
 
