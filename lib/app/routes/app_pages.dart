@@ -12,7 +12,7 @@ import 'package:mobimap/app/ui/android/new_ap_page.dart';
 import 'package:mobimap/app/ui/android/register_page.dart';
 import 'package:mobimap/app/ui/android/reset_password_page.dart';
 import 'package:mobimap/app/ui/android/splash_art_page.dart';
-import 'package:mobimap/app/ui/android/veifiry_email_page.dart';
+import 'package:mobimap/app/ui/android/verify_email_page.dart';
 
 class AppPages {
   static final routes = [
@@ -51,7 +51,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.RESETPASSWORD,
-      page: () => const ResetPasswordPage(),
+      page: () => ResetPasswordPage(),
       binding: ResetPasswordBinding(),
       transition: Transition.rightToLeft,
     ),

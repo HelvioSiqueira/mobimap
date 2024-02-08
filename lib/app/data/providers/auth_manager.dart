@@ -5,8 +5,6 @@ abstract class AuthManager {
 
   Future<Result<String, String>> doResetPassword(String email);
 
-  Future<Result<String, String>> verifyEmail();
-
   Future<Result<String, String>> doRegisterNewUser(
       String email, String password);
 }

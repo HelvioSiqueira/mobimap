@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:logger/logger.dart';
 import 'package:mobimap/app/data/providers/auth_manager.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
@@ -22,7 +23,7 @@ class AuthManagerImpl extends AuthManager {
 
       return const Success('success');
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      Logger().e(e.code);
       return Failure(e.code);
     }
   }
@@ -34,22 +35,12 @@ class AuthManagerImpl extends AuthManager {
 
       return const Success('success');
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      Logger().e(e.code);
       return Failure(e.code);
     }
   }
 
   @override
-  Future<Result<String, String>> verifyEmail() async {
-    try {
-      await userCredential.user?.sendEmailVerification();
-      return const Success('success');
-    } on FirebaseAuthException catch (e) {
-      print(e.code);
-      return Failure(e.code);
-    }
-  }
-
   Future<Result<String, String>> doRegisterNewUser(
       String email, String password) async {
     try {
@@ -62,7 +53,7 @@ class AuthManagerImpl extends AuthManager {
 
       return const Success('success');
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      Logger().e(e.code);
       return Failure(e.code);
     }
   }

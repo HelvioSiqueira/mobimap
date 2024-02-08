@@ -10,7 +10,9 @@ class ResetPasswordController extends GetxController {
   final ResetPasswordRepository resetPasswordRepository;
   RxBool loading = false.obs;
   RxBool error = false.obs;
+  RxBool success = false.obs;
   String errorMessage = "";
+  String messageSuccess = "";
 
   Future<bool> resetPassword(String email) async {
     loading(true);
@@ -19,6 +21,8 @@ class ResetPasswordController extends GetxController {
 
     switch (result) {
       case Success<String, String>():
+        messageSuccess = "Enviamos um email com um link pra redefinição de senha para o endereço indicado.".tr;
+        success.value = true;
         return true;
       case Failure<String, String>(exception: String exception):
         _handleResetPasswordTypeException(exception);
