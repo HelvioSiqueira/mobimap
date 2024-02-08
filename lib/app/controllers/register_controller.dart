@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
+import 'package:mobimap/app/data/repository/register_repository.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
-import '../data/providers/auth_manager_impl.dart';
 import '../utils/errors/errors_create_user.dart';
 
 class RegisterController extends GetxController {
-  RegisterController({required this.authManager});
+  RegisterController({required this.registerRepository});
 
-  final AuthManagerImpl authManager;
+  final RegisterRepository registerRepository;
   RxBool loading = false.obs;
   RxBool error = false.obs;
   RxString errorMessage = "".obs;
@@ -29,7 +29,7 @@ class RegisterController extends GetxController {
   Future<bool> registerNewUser(String email, String password) async {
     loading(true);
 
-    var result = await authManager.doRegisterNewUser(email, password);
+    var result = await registerRepository.doRegisterNewUser(email, password);
 
     loading(false);
 
