@@ -133,7 +133,9 @@ class LoginPage extends GetView<LoginController> {
                             },
                             child: Text('Cadastrar'.tr)),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(Routes.RESETPASSWORD);
+                            },
                             child: Text('Esqueci minha senha'.tr))
                       ],
                     ),
