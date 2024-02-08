@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:mobimap/app/utils/auth_manager_impl.dart';
 import 'package:mobimap/app/utils/errors/errors_login.dart';
+import 'package:mobimap/app/utils/errors/errors_reset_password.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
 class LoginController extends GetxController {
@@ -23,7 +24,7 @@ class LoginController extends GetxController {
       case Success<String, String>():
         return true;
       case Failure<String, String>(exception: String exception):
-        _handleTypeException(exception);
+        _handleLoginTypeException(exception);
         error.value = true;
         return false;
     }
@@ -34,17 +35,17 @@ class LoginController extends GetxController {
     var result = await authManager.doResetPassword(email);
     loading(false);
 
-    if (result is Failure) {
-      error.value = true;
-      return false;
-    } else if (result is Success) {
-      return true;
-    } else {
-      return false;
+    switch (result) {
+      case Success<String, String>():
+        return true;
+      case Failure<String, String>(exception: String exception):
+        _handleResetPasswordTypeException(exception);
+        error.value = true;
+        return false;
     }
   }
 
-  _handleTypeException(String exception) {
+  _handleLoginTypeException(String exception) {
     switch (exception) {
       case ErrorsLogin.noVerify:
         errorMessage =
@@ -56,13 +57,29 @@ class LoginController extends GetxController {
         break;
 
       case ErrorsLogin.invalidEmail:
-        errorMessage = "Email invaligo".tr;
+        errorMessage = "Email inválido".tr;
         break;
 
       default:
         errorMessage =
             "Não foi possivel realizar o login, verifique seu email e senha e tente novamente."
                 .tr;
+    }
+  }
+
+  _handleResetPasswordTypeException(String exception) {
+    switch (exception) {
+      case ErrorsResetPassword.authUserNotFound:
+        errorMessage = "Usuario não encontrado".tr;
+        break;
+      case ErrorsResetPassword.authInvalidEmail:
+        errorMessage = "Email inválido".tr;
+        break;
+      default:
+        errorMessage = "Não foi possivel resetar a sua senha,"
+                " tente novamente mais tarde."
+            .tr;
+        break;
     }
   }
 }
