@@ -1,5 +1,4 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:logger/logger.dart';
 import 'package:mobimap/app/data/model/accessibility_point.dart';
 
 import '../../utils/fire_database_url.dart';

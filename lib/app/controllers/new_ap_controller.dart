@@ -2,8 +2,13 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mobimap/app/data/model/accessibility_point.dart';
+import 'package:mobimap/app/data/repository/new_ap_repository.dart';
 
 class NewAPController extends GetxController {
+  NewAPController({required this.newApRepository});
+
+  final NewApRepository newApRepository;
   RxBool isQualityEmpty = false.obs;
   RxBool isTypesEmpty = false.obs;
 
@@ -45,5 +50,9 @@ class NewAPController extends GetxController {
         " ${firstPlacemark.postalCode}";
 
     loadingAddress(false);
+  }
+
+  void addAccessibilityPointToDatabase(AccessibilityPoint ap) {
+    newApRepository.addAccessibilityPointToDatabase(ap);
   }
 }

@@ -81,7 +81,7 @@ class NewAPPage extends GetView<NewAPController> {
                         address: controller.placemark.value,
                         creator: user?.email);
 
-                    firebaseDatabaseManager.addAccessibilityPointToDatabase(ap);
+                    controller.addAccessibilityPointToDatabase(ap);
 
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(
