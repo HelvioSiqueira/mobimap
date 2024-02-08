@@ -32,15 +32,16 @@ class HomePage extends GetView<HomeController> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
 
-          if(snapshot.hasData){
-            Get.lazyPut<User?>(() => snapshot.data);
-          }
-
           return SafeArea(
             child: Scaffold(
                 floatingActionButton: snapshot.hasData
                     ? FloatingActionButton(
                         onPressed: () {
+
+                          if(snapshot.hasData){
+                            Get.lazyPut(() => snapshot.data);
+                          }
+
                           Get.toNamed(Routes.NEWAP);
                         },
                         child: const Icon(Icons.add),
