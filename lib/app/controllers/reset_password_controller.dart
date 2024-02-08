@@ -1,20 +1,20 @@
 import 'package:get/get.dart';
+import 'package:mobimap/app/data/repository/reset_password_repository.dart';
 
-import '../data/providers/auth_manager_impl.dart';
 import '../utils/errors/errors_reset_password.dart';
 import '../utils/result_status.dart';
 
 class ResetPasswordController extends GetxController {
-  ResetPasswordController({required this.authManager});
+  ResetPasswordController({required this.resetPasswordRepository});
 
-  final AuthManagerImpl authManager;
+  final ResetPasswordRepository resetPasswordRepository;
   RxBool loading = false.obs;
   RxBool error = false.obs;
   String errorMessage = "";
 
   Future<bool> resetPassword(String email) async {
     loading(true);
-    var result = await authManager.doResetPassword(email);
+    var result = await resetPasswordRepository.doResetPassword(email);
     loading(false);
 
     switch (result) {
