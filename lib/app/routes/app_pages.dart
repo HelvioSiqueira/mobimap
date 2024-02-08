@@ -17,9 +17,10 @@ import 'package:mobimap/app/ui/android/veifiry_email_page.dart';
 class AppPages {
   static final routes = [
     GetPage(
-        name: Routes.INITIAL,
-        page: () => const SplashArtPage(),
-        bindings: [SplashArtBinding(), HomeBinding()]),
+      name: Routes.INITIAL,
+      page: () => const SplashArtPage(),
+      bindings: [SplashArtBinding(), HomeBinding()],
+    ),
     GetPage(
       name: Routes.HOME,
       page: () => HomePage(),
@@ -44,7 +45,10 @@ class AppPages {
       binding: RegisterBinding(),
       transition: Transition.rightToLeft,
     ),
-    GetPage(name: Routes.VERIFYEMAIL, page: () => const VerifyEmailPage()),
+    GetPage(
+      name: Routes.VERIFYEMAIL,
+      page: () => const VerifyEmailPage(),
+    ),
     GetPage(
       name: Routes.RESETPASSWORD,
       page: () => const ResetPasswordPage(),
