@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
-import '../utils/auth_manager_impl.dart';
+import '../data/providers/auth_manager_impl.dart';
 import '../utils/errors/errors_create_user.dart';
 
 class RegisterController extends GetxController {
@@ -27,7 +27,6 @@ class RegisterController extends GetxController {
   }
 
   Future<bool> registerNewUser(String email, String password) async {
-
     loading(true);
 
     var result = await authManager.doRegisterNewUser(email, password);

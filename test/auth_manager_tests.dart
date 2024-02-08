@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobimap/app/utils/auth_manager.dart';
+import 'package:mobimap/app/data/providers/auth_manager.dart';
 import 'package:mobimap/app/utils/errors/errors_login.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 import 'package:mockito/annotations.dart';

@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:mobimap/app/utils/auth_manager_impl.dart';
 
+import '../data/providers/auth_manager_impl.dart';
 import '../utils/errors/errors_reset_password.dart';
 import '../utils/result_status.dart';
 
-class ResetPasswordController extends GetxController{
+class ResetPasswordController extends GetxController {
   ResetPasswordController({required this.authManager});
 
   final AuthManagerImpl authManager;
@@ -37,7 +37,7 @@ class ResetPasswordController extends GetxController{
         break;
       default:
         errorMessage = "Não foi possivel resetar a sua senha,"
-            " tente novamente mais tarde."
+                " tente novamente mais tarde."
             .tr;
         break;
     }

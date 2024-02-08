@@ -1,4 +1,4 @@
-import 'result_status.dart';
+import '../../utils/result_status.dart';
 
 abstract class AuthManager {
   Future<Result<String, String>> doLogin(String email, String password);

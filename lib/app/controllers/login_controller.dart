@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:mobimap/app/utils/auth_manager_impl.dart';
 import 'package:mobimap/app/utils/errors/errors_login.dart';
-import 'package:mobimap/app/utils/errors/errors_reset_password.dart';
 import 'package:mobimap/app/utils/result_status.dart';
+
+import '../data/providers/auth_manager_impl.dart';
 
 class LoginController extends GetxController {
   LoginController({required this.authManager});

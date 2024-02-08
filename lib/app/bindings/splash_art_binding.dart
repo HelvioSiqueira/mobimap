@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:mobimap/app/controllers/login_controller.dart';
-import 'package:mobimap/app/utils/auth_manager_impl.dart';
 
 import '../controllers/home_controller.dart';
+import '../data/providers/auth_manager_impl.dart';
 
-class SplashArtBinding extends Bindings{
+class SplashArtBinding extends Bindings {
   @override
   void dependencies() {
     BindingsBuilder(() {
@@ -12,7 +12,8 @@ class SplashArtBinding extends Bindings{
     });
 
     BindingsBuilder(() {
-      Get.lazyPut<LoginController>(() => LoginController(authManager: AuthManagerImpl()));
+      Get.lazyPut<LoginController>(
+          () => LoginController(authManager: AuthManagerImpl()));
     });
   }
 }

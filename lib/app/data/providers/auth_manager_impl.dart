@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mobimap/app/utils/auth_manager.dart';
+import 'package:mobimap/app/data/providers/auth_manager.dart';
 import 'package:mobimap/app/utils/result_status.dart';
 
 class AuthManagerImpl extends AuthManager {
