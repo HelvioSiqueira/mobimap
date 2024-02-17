@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:mobimap/app/data/model/accessibility_point.dart';
-import 'package:mobimap/app/data/providers/firebase_database_manager.dart';
+import 'package:mobimap/app/data/providers/firebase_database_manager_impl.dart';
 import 'package:mobimap/app/ui/widgets/android/my_chip_list.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_field.dart';
 import 'package:mobimap/app/ui/widgets/android/my_material_text_field.dart';
@@ -17,7 +17,7 @@ class NewAPPage extends GetView<NewAPController> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  FirebaseDatabaseManager firebaseDatabaseManager = Get.find();
+  FirebaseDatabaseManagerImpl firebaseDatabaseManager = Get.find();
 
   final TextEditingController _nameAPController = TextEditingController();
   final _selectedTypesOfAccessibility = <String>[];

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobimap/app/controllers/home_controller.dart';
-import 'package:mobimap/app/data/providers/firebase_database_manager.dart';
+import 'package:mobimap/app/data/providers/firebase_database_manager_impl.dart';
 import 'package:mobimap/app/routes/app_routes.dart';
 import 'package:mobimap/app/ui/widgets/android/my_loading_alert_dialog.dart';
 import 'package:mobimap/app/ui/widgets/android/my_circle_avatar.dart';
@@ -23,7 +23,7 @@ class HomePage extends GetView<HomeController> {
       ),
     );
 
-    var firebase = FirebaseDatabaseManager();
+    var firebase = FirebaseDatabaseManagerImpl();
     firebase.getAccessibilityPointsToDatabase();
 
     //Get.find<HomeController>().getUserLocation();

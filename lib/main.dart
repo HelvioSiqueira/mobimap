@@ -6,7 +6,7 @@ import 'package:mobimap/app/routes/app_pages.dart';
 import 'package:mobimap/app/routes/app_routes.dart';
 
 import 'app/bindings/splash_art_binding.dart';
-import 'app/data/providers/firebase_database_manager.dart';
+import 'app/data/providers/firebase_database_manager_impl.dart';
 import 'app/translations/app_translations.dart';
 import 'app/ui/theme/color_schemes.dart';
 import 'firebase_options.dart';
@@ -17,7 +17,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  Get.put<FirebaseDatabaseManager>(FirebaseDatabaseManager());
+  Get.put<FirebaseDatabaseManagerImpl>(FirebaseDatabaseManagerImpl());
 
   runApp(const MyApp());
 }
