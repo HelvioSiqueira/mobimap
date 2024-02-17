@@ -9,7 +9,7 @@ import 'package:mobimap/app/utils/result_status.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;
 
-import 'auth_manager_tests.dart' as _i2;
+import '../auth_manager_tests.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -34,14 +34,14 @@ class MockAuthManagerTest extends _i1.Mock implements _i2.AuthManagerTest {
 
   @override
   _i3.Future<_i4.Result<String, String>> doLogin(
-    String? login,
+    String? email,
     String? password,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #doLogin,
           [
-            login,
+            email,
             password,
           ],
         ),
@@ -51,7 +51,7 @@ class MockAuthManagerTest extends _i1.Mock implements _i2.AuthManagerTest {
           Invocation.method(
             #doLogin,
             [
-              login,
+              email,
               password,
             ],
           ),
@@ -71,22 +71,6 @@ class MockAuthManagerTest extends _i1.Mock implements _i2.AuthManagerTest {
           Invocation.method(
             #doResetPassword,
             [email],
-          ),
-        )),
-      ) as _i3.Future<_i4.Result<String, String>>);
-
-  @override
-  _i3.Future<_i4.Result<String, String>> verifyEmail() => (super.noSuchMethod(
-        Invocation.method(
-          #verifyEmail,
-          [],
-        ),
-        returnValue: _i3.Future<_i4.Result<String, String>>.value(
-            _i5.dummyValue<_i4.Result<String, String>>(
-          this,
-          Invocation.method(
-            #verifyEmail,
-            [],
           ),
         )),
       ) as _i3.Future<_i4.Result<String, String>>);

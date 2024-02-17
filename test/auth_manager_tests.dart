@@ -5,7 +5,7 @@ import 'package:mobimap/app/utils/result_status.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'auth_manager_tests.mocks.dart';
+import 'mocks/auth_manager_tests.mocks.dart';
 
 class AuthManagerTest extends Mock implements AuthManager {}
 
